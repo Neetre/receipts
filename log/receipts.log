@@ -1,0 +1,433 @@
+2024-11-16 12:40:30,318 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:40:30,319 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:40:31,090 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 12:40:31,278 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 12:40:31,584 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 12:40:34,090 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:40:34,092 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:41:00,546 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:41:00,547 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:41:01,258 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 12:41:01,426 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 12:41:01,730 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 12:41:03,741 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:41:03,742 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:41:04,505 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:41:04,520 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000161BFAB4B10>
+2024-11-16 12:41:04,520 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:41:04,521 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:41:04,521 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 12:41:04,521 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:41:04,521 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:41:04,540 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 11:41:04 GMT')])
+2024-11-16 12:41:04,541 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:41:04,541 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 12:41:04,543 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:41:04,543 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:41:04,543 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:41:04,543 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:41:04,543 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:41:04,547 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:41:04,548 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000161CC2A5D90>
+2024-11-16 12:41:04,549 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 12:41:04,550 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:41:04,550 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 12:41:04,551 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:41:04,551 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 12:41:05,566 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 11:41:05 GMT')])
+2024-11-16 12:41:05,567 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:41:05,567 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 12:41:05,567 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:41:05,567 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:41:05,567 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:41:05,567 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:41:05,568 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:41:05,727 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_uqz4ms1e_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_uqz4ms1e', 'txt']
+2024-11-16 12:45:22,511 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:45:22,511 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:45:22,766 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 12:45:22,948 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 12:45:23,115 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 12:45:23,834 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:45:23,841 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:45:24,096 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:45:24,097 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000020A41398590>
+2024-11-16 12:45:24,097 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:45:24,097 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:45:24,097 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 12:45:24,097 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:45:24,097 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:45:24,178 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 11:45:24 GMT')])
+2024-11-16 12:45:24,179 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:45:24,179 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 12:45:24,180 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:45:24,180 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:45:24,180 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:45:24,180 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:45:24,180 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:45:24,181 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:45:24,182 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000020A419CB890>
+2024-11-16 12:45:24,182 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 12:45:24,182 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:45:24,182 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 12:45:24,182 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:45:24,182 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 12:45:24,604 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 11:45:24 GMT')])
+2024-11-16 12:45:24,605 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:45:24,605 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 12:45:24,605 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:45:24,605 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:45:24,605 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:45:24,605 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:45:24,605 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:45:24,650 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_8o8k6ztn_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_8o8k6ztn', 'txt']
+2024-11-16 12:48:16,414 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:48:16,415 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:48:16,678 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 12:48:16,856 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 12:48:17,021 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 12:48:17,808 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:48:17,808 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:48:18,066 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:48:18,067 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001DDDC7BFB50>
+2024-11-16 12:48:18,067 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:48:18,067 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:48:18,067 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 12:48:18,067 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:48:18,068 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:48:18,154 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 11:48:18 GMT')])
+2024-11-16 12:48:18,154 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:48:18,154 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 12:48:18,155 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:48:18,155 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:48:18,155 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:48:18,155 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:48:18,155 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:48:18,156 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:48:18,157 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001DDDCA960D0>
+2024-11-16 12:48:18,157 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 12:48:18,157 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:48:18,157 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 12:48:18,157 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:48:18,157 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 12:48:18,580 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 11:48:18 GMT')])
+2024-11-16 12:48:18,580 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:48:18,581 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 12:48:18,581 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:48:18,581 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:48:18,581 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:48:18,581 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:48:18,581 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:48:18,625 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_dmemk6z0_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_dmemk6z0', 'txt']
+2024-11-16 12:48:38,108 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:48:38,109 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:48:38,362 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 12:48:38,542 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 12:48:38,716 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 12:48:39,474 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 12:48:39,476 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 12:48:39,730 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:48:39,748 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001C97FC934D0>
+2024-11-16 12:48:39,748 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:48:39,748 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:48:39,748 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 12:48:39,748 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:48:39,748 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 12:48:39,824 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Sat, 16 Nov 2024 11:48:39 GMT')])
+2024-11-16 12:48:39,824 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:48:39,825 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 12:48:39,825 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:48:39,825 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:48:39,825 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:48:39,825 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:48:39,825 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:48:39,826 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 12:48:39,827 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001C97FF6A150>
+2024-11-16 12:48:39,827 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 12:48:39,827 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 12:48:39,827 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 12:48:39,827 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 12:48:39,827 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 12:48:40,238 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 11:48:40 GMT')])
+2024-11-16 12:48:40,238 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 12:48:40,238 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 12:48:40,238 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 12:48:40,238 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 12:48:40,238 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 12:48:40,239 - httpcore.connection - DEBUG - close.started
+2024-11-16 12:48:40,239 - httpcore.connection - DEBUG - close.complete
+2024-11-16 12:48:40,284 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_zewcfnto_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_zewcfnto', 'txt']
+2024-11-16 13:50:06,163 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 13:50:06,164 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 13:50:06,512 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 13:50:06,695 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 13:50:06,875 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 13:50:08,037 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 13:50:08,037 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 13:50:08,417 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 13:50:08,417 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FD56934A90>
+2024-11-16 13:50:08,417 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 13:50:08,418 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 13:50:08,418 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 13:50:08,418 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 13:50:08,418 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 13:50:08,571 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 12:50:08 GMT')])
+2024-11-16 13:50:08,572 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 13:50:08,572 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 13:50:08,573 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 13:50:08,573 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 13:50:08,573 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 13:50:08,573 - httpcore.connection - DEBUG - close.started
+2024-11-16 13:50:08,573 - httpcore.connection - DEBUG - close.complete
+2024-11-16 13:50:08,576 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 13:50:08,602 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FD582FBA10>
+2024-11-16 13:50:08,602 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 13:50:08,602 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 13:50:08,602 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 13:50:08,602 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 13:50:08,602 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 13:50:09,212 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 12:50:09 GMT')])
+2024-11-16 13:50:09,212 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 13:50:09,213 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 13:50:09,213 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 13:50:09,213 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 13:50:09,213 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 13:50:09,213 - httpcore.connection - DEBUG - close.started
+2024-11-16 13:50:09,213 - httpcore.connection - DEBUG - close.complete
+2024-11-16 13:50:09,300 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_w8w1j6nq_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_w8w1j6nq', 'txt']
+2024-11-16 13:50:09,970 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the receipt text, identify the date, total amount, merchant, and items.'}, {'role': 'user', 'content': 'BURGER INN\nDI KHAN MUHAMMAD AL!\nVIA BRUNELLESCHI 9/B VERONA\nP. IVA 04993480237\nTEL. 045 8949728\nTEL, 351 1115900\n\nDOCUMENTO COMMERCI ALE\nDI VENDITA O PRESTAZIONE\n\nDESCRIZIONE IVA EURO\nMARGHERITA 10% 00\nTOTALE COMPLESSIVO 5, 00\nDI CUI IVA 0, 45\nPAGAMENTO ELETTRONICO 5,00\nIMPORTO PAGATO 5, 00\n\n13-11-2024 13: 44\n\nDOCUMENTO N. 1167-0024\nRT 3CMAAOS1871\n\nCARTA CREDITO 5, 00\nREG. 1 op. 0\n\nNESSUNO\n\nERC E ORIE\n'}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 13:50:09,980 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 13:50:09,981 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2024-11-16 13:50:10,050 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FD58351B90>
+2024-11-16 13:50:10,051 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x000001FD553364E0> server_hostname='api.groq.com' timeout=5.0
+2024-11-16 13:50:10,087 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001FD57DFA8D0>
+2024-11-16 13:50:10,087 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 13:50:10,087 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 13:50:10,087 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 13:50:10,087 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 13:50:10,087 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 13:50:10,569 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 12:50:15 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'19870'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'390ms'), (b'x-request-id', b'req_01jctgc97wfbwtqe1gd91venns'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=5Jfmp7o80nmcvqF_nZzuVULS7wWQ70nHbJZepc4P_qQ-1731761415-1.0.1.1-IKdNaMv56WRAhERj5wdq.0NS.44EpPCKGdLwbalI8w.JUO37e7KVoUIT_lCjOMd2ciQKt_FK0_fHddozKME8uw; path=/; expires=Sat, 16-Nov-24 13:20:15 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e379b0d6d7277fc-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 13:50:10,569 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 13:50:10,569 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 13:50:10,570 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 13:50:10,570 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 13:50:10,570 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 13:50:10,570 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 12:50:15 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '19870', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '390ms', 'x-request-id': 'req_01jctgc97wfbwtqe1gd91venns', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=5Jfmp7o80nmcvqF_nZzuVULS7wWQ70nHbJZepc4P_qQ-1731761415-1.0.1.1-IKdNaMv56WRAhERj5wdq.0NS.44EpPCKGdLwbalI8w.JUO37e7KVoUIT_lCjOMd2ciQKt_FK0_fHddozKME8uw; path=/; expires=Sat, 16-Nov-24 13:20:15 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '8e379b0d6d7277fc-FCO', 'content-encoding': 'gzip'})
+2024-11-16 13:50:10,738 - httpcore.connection - DEBUG - close.started
+2024-11-16 13:50:10,738 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:05:16,965 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 14:05:16,966 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 14:05:17,479 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 14:05:17,664 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 14:05:17,853 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 14:05:19,205 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 14:05:19,206 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 14:05:19,681 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:05:19,682 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000132550B0A90>
+2024-11-16 14:05:19,682 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 14:05:19,682 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:05:19,682 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 14:05:19,682 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:05:19,682 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 14:05:19,826 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 13:05:19 GMT')])
+2024-11-16 14:05:19,827 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 14:05:19,827 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 14:05:19,827 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:05:19,827 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:05:19,827 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:05:19,828 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:05:19,828 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:05:19,830 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:05:19,831 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000013256C9C7D0>
+2024-11-16 14:05:19,831 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 14:05:19,832 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:05:19,832 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 14:05:19,832 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:05:19,832 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 14:05:20,541 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 13:05:20 GMT')])
+2024-11-16 14:05:20,541 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 14:05:20,541 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 14:05:20,541 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:05:20,542 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:05:20,542 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:05:20,542 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:05:20,542 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:05:20,586 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_3vuxh5sa_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_3vuxh5sa', 'txt']
+2024-11-16 14:05:21,205 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the receipt text, identify the date, total amount, merchant, and items.'}, {'role': 'user', 'content': 'BURGER INN\nDI KHAN MUHAMMAD AL!\nVIA BRUNELLESCHI 9/B VERONA\nP. IVA 04993480237\nTEL. 045 8949728\nTEL, 351 1115900\n\nDOCUMENTO COMMERCI ALE\nDI VENDITA O PRESTAZIONE\n\nDESCRIZIONE IVA EURO\nMARGHERITA 10% 00\nTOTALE COMPLESSIVO 5, 00\nDI CUI IVA 0, 45\nPAGAMENTO ELETTRONICO 5,00\nIMPORTO PAGATO 5, 00\n\n13-11-2024 13: 44\n\nDOCUMENTO N. 1167-0024\nRT 3CMAAOS1871\n\nCARTA CREDITO 5, 00\nREG. 1 op. 0\n\nNESSUNO\n\nERC E ORIE\n'}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 14:05:21,215 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 14:05:21,216 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:05:21,307 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000013256D06AD0>
+2024-11-16 14:05:21,307 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000013253CF64E0> server_hostname='api.groq.com' timeout=5.0
+2024-11-16 14:05:21,370 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000132563CF010>
+2024-11-16 14:05:21,371 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 14:05:21,371 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:05:21,371 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 14:05:21,371 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:05:21,371 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 14:05:21,821 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 13:05:26 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'19870'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'390ms'), (b'x-request-id', b'req_01jcth834eek69tb19e3sg6gb0'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=iSfwoRZ811q0NqBzqnFTVVXi6hQLIfQkfeoQyUALR9w-1731762326-1.0.1.1-LVsZ2yFghkUUkbvevKLGmss2tow8sQp5pd0X5PiEu5Ah_3JAJ8kIbb6vw1SDgoPHpOpTWVyIfwzqINn7mG412A; path=/; expires=Sat, 16-Nov-24 13:35:26 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e37b14cce5aea3b-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 14:05:21,822 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 14:05:21,822 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 14:05:21,822 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:05:21,823 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:05:21,823 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:05:21,823 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 13:05:26 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '19870', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '390ms', 'x-request-id': 'req_01jcth834eek69tb19e3sg6gb0', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=iSfwoRZ811q0NqBzqnFTVVXi6hQLIfQkfeoQyUALR9w-1731762326-1.0.1.1-LVsZ2yFghkUUkbvevKLGmss2tow8sQp5pd0X5PiEu5Ah_3JAJ8kIbb6vw1SDgoPHpOpTWVyIfwzqINn7mG412A; path=/; expires=Sat, 16-Nov-24 13:35:26 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '8e37b14cce5aea3b-FCO', 'content-encoding': 'gzip'})
+2024-11-16 14:05:21,828 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the identified data, convert it to a dictionary.'}, {'role': 'user', 'content': "Here's the extracted information from the receipt text:\n\n1. **Date:** 13-11-2024 (13th November 2024)\n2. **Total Amount:** €5.00\n3. **Merchant:** Burger Inn (located at Via Brunelleschi 9/B, Verona)\n4. **Items:**\n   - **Margherita**: €5.00 (with 10% VAT, €0.45)\n\nNote: The receipt appears to be in Italian, and some translations were made for clarity."}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 14:05:21,828 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 14:05:21,828 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 14:05:21,829 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:05:21,829 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 14:05:21,829 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:05:21,829 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 14:05:22,521 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 13:05:27 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14398'), (b'x-ratelimit-remaining-tokens', b'19592'), (b'x-ratelimit-reset-requests', b'11.593s'), (b'x-ratelimit-reset-tokens', b'1.224s'), (b'x-request-id', b'req_01jcth83h2ft49akw51qbv96re'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e37b14fa829ea3b-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 14:05:22,521 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 14:05:22,521 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 14:05:22,522 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:05:22,522 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:05:22,522 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:05:22,522 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 13:05:27 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14398', 'x-ratelimit-remaining-tokens': '19592', 'x-ratelimit-reset-requests': '11.593s', 'x-ratelimit-reset-tokens': '1.224s', 'x-request-id': 'req_01jcth83h2ft49akw51qbv96re', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'cf-ray': '8e37b14fa829ea3b-FCO', 'content-encoding': 'gzip'})
+2024-11-16 14:05:22,700 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:05:22,701 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:06:18,800 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 14:06:18,801 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 14:06:19,295 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 14:06:19,469 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 14:06:19,665 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 14:06:21,048 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 14:06:21,049 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 14:06:21,562 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:06:21,563 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002884A96C1D0>
+2024-11-16 14:06:21,563 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 14:06:21,563 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:06:21,563 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 14:06:21,564 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:06:21,564 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 14:06:21,748 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 13:06:21 GMT')])
+2024-11-16 14:06:21,749 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 14:06:21,749 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 14:06:21,750 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:06:21,750 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:06:21,750 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:06:21,750 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:06:21,750 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:06:21,752 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:06:21,753 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000002885716C9D0>
+2024-11-16 14:06:21,754 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 14:06:21,754 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:06:21,754 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 14:06:21,754 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:06:21,754 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 14:06:22,443 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Sat, 16 Nov 2024 13:06:22 GMT')])
+2024-11-16 14:06:22,444 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 14:06:22,444 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 14:06:22,444 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:06:22,445 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:06:22,445 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:06:22,445 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:06:22,445 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:06:22,491 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_sufyjx_4_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_sufyjx_4', 'txt']
+2024-11-16 14:06:23,166 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the receipt text, identify the date, total amount, merchant, and items.'}, {'role': 'user', 'content': 'BURGER INN\nDI KHAN MUHAMMAD AL!\nVIA BRUNELLESCHI 9/B VERONA\nP. IVA 04993480237\nTEL. 045 8949728\nTEL, 351 1115900\n\nDOCUMENTO COMMERCI ALE\nDI VENDITA O PRESTAZIONE\n\nDESCRIZIONE IVA EURO\nMARGHERITA 10% 00\nTOTALE COMPLESSIVO 5, 00\nDI CUI IVA 0, 45\nPAGAMENTO ELETTRONICO 5,00\nIMPORTO PAGATO 5, 00\n\n13-11-2024 13: 44\n\nDOCUMENTO N. 1167-0024\nRT 3CMAAOS1871\n\nCARTA CREDITO 5, 00\nREG. 1 op. 0\n\nNESSUNO\n\nERC E ORIE\n'}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 14:06:23,178 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 14:06:23,178 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:06:23,218 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000288571D6A10>
+2024-11-16 14:06:23,218 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x00000288541C64E0> server_hostname='api.groq.com' timeout=5.0
+2024-11-16 14:06:23,248 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000288567E8E10>
+2024-11-16 14:06:23,248 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 14:06:23,249 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:06:23,249 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 14:06:23,249 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:06:23,249 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 14:06:23,824 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 13:06:28 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'19870'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'390ms'), (b'x-request-id', b'req_01jcth9zj7f00tf68knf6ts1ww'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=EQGFXuLFyxzso2Gh1ZKRhrfC95FzWUzrlQMFLOX5Nss-1731762388-1.0.1.1-ux5W1RALM1B9gEt7T.KDs8D3Zt3SditLpBGpM8YxJUK0Et8hBlVTGC4nvM0Rh3oRAFzIKs6zRlXBb77CYpkiZg; path=/; expires=Sat, 16-Nov-24 13:36:28 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e37b2cf7a79ea6e-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 14:06:23,825 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 14:06:23,825 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 14:06:23,825 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:06:23,826 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:06:23,826 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:06:23,826 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 13:06:28 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '19870', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '390ms', 'x-request-id': 'req_01jcth9zj7f00tf68knf6ts1ww', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=EQGFXuLFyxzso2Gh1ZKRhrfC95FzWUzrlQMFLOX5Nss-1731762388-1.0.1.1-ux5W1RALM1B9gEt7T.KDs8D3Zt3SditLpBGpM8YxJUK0Et8hBlVTGC4nvM0Rh3oRAFzIKs6zRlXBb77CYpkiZg; path=/; expires=Sat, 16-Nov-24 13:36:28 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '8e37b2cf7a79ea6e-FCO', 'content-encoding': 'gzip'})
+2024-11-16 14:06:23,831 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the identified data, convert it to a dictionary.'}, {'role': 'user', 'content': "Based on the given receipt text, here's the extracted information:\n\n1. **Date**: 13-11-2024 (13th November 2024)\n2. **Total Amount**: 5.00 euros\n3. **Merchant**: Burger Inn, Via Brunelleschi 9/B, Verona, Italy (P. IVA 04993480237)\n4. **Items**: \n   - Margherita (price inclusive of 10% VAT, but the total VAT amount is 0.45 euros, which is unusual given the 10% VAT rate; possibly an error in the receipt)\n\nHowever, it appears there was an error with the receipt. According to the receipt, the 'MARGHERITA 10% 00' and 'TOTALE COMPLESSIVO 5, 00' lines don't add up correctly when calculating 10% VAT. The receipt seems to have a discrepancy in the VAT calculation."}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 14:06:23,831 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 14:06:23,832 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 14:06:23,832 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:06:23,832 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 14:06:23,832 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:06:23,832 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 14:06:24,637 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 13:06:29 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14398'), (b'x-ratelimit-remaining-tokens', b'19432'), (b'x-ratelimit-reset-requests', b'11.476s'), (b'x-ratelimit-reset-tokens', b'1.703s'), (b'x-request-id', b'req_01jctha02pecns5s4vqwm6b9ne'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e37b2d32d34ea6e-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 14:06:24,638 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 14:06:24,638 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 14:06:24,638 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:06:24,638 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:06:24,638 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:06:24,639 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 13:06:29 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14398', 'x-ratelimit-remaining-tokens': '19432', 'x-ratelimit-reset-requests': '11.476s', 'x-ratelimit-reset-tokens': '1.703s', 'x-request-id': 'req_01jctha02pecns5s4vqwm6b9ne', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'cf-ray': '8e37b2d32d34ea6e-FCO', 'content-encoding': 'gzip'})
+2024-11-16 14:06:24,816 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:06:24,817 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:50:42,118 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 14:50:42,119 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 14:50:42,631 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-16 14:50:43,026 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-16 14:50:43,425 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-16 14:50:44,906 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-16 14:50:44,907 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-16 14:50:45,412 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:50:45,413 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018EC9113050>
+2024-11-16 14:50:45,414 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-16 14:50:45,414 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:50:45,414 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-16 14:50:45,414 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:50:45,414 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-16 14:50:45,623 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 13:50:45 GMT')])
+2024-11-16 14:50:45,624 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 14:50:45,624 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-16 14:50:45,625 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:50:45,625 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:50:45,625 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:50:45,625 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:50:45,625 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:50:45,630 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:50:45,630 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018EC9AB9BD0>
+2024-11-16 14:50:45,631 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-16 14:50:45,631 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:50:45,631 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-16 14:50:45,631 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:50:45,631 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-16 14:50:46,382 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Sat, 16 Nov 2024 13:50:46 GMT')])
+2024-11-16 14:50:46,382 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-16 14:50:46,382 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-16 14:50:46,383 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:50:46,383 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:50:46,383 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:50:46,383 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:50:46,383 - httpcore.connection - DEBUG - close.complete
+2024-11-16 14:50:46,438 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_dxqlyl2h_input.JPEG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_dxqlyl2h', 'txt']
+2024-11-16 14:50:47,076 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the receipt text, identify the date, total amount, merchant, and items.'}, {'role': 'user', 'content': "CAFFE’' ESPRESSO\n\nTUTALE nel 3 aK\n\ndi cut 1V 0,22\nPagamento elettronico I 3,50\nss) 3,50\n\nImporto pagato\n\n14-11-2024 11:05\nDOCUMENTO N. 1893-0106\n\nRIT ayevour\nL10 ET\n3,50\n\nal\n"}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 14:50:47,088 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 14:50:47,088 - httpcore.connection - DEBUG - connect_tcp.started host='api.groq.com' port=443 local_address=None timeout=5.0 socket_options=None
+2024-11-16 14:50:47,143 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018EC9B33310>
+2024-11-16 14:50:47,143 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x0000018EC6B264E0> server_hostname='api.groq.com' timeout=5.0
+2024-11-16 14:50:47,175 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000018EC9381E90>
+2024-11-16 14:50:47,175 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 14:50:47,176 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:50:47,176 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 14:50:47,176 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:50:47,176 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 14:50:47,839 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 13:50:52 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14399'), (b'x-ratelimit-remaining-tokens', b'19927'), (b'x-ratelimit-reset-requests', b'6s'), (b'x-ratelimit-reset-tokens', b'219ms'), (b'x-request-id', b'req_01jctkv8zeeqevwbdweyr79za6'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Set-Cookie', b'__cf_bm=Emdk58y6g80iw2pKoQtl0SHFA9XNvv088bVASvpg4tk-1731765052-1.0.1.1-sdIFQYSTPFzkfi7KEKO386xatgwjnQk.mlXdiYuqUWN947AEFCldQRqrRobXIGXEUprLFp_APrlaDpncc9tUlw; path=/; expires=Sat, 16-Nov-24 14:20:52 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e37f3d88f14ea4a-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 14:50:47,840 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 14:50:47,840 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 14:50:47,840 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:50:47,841 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:50:47,841 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:50:47,841 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 13:50:52 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14399', 'x-ratelimit-remaining-tokens': '19927', 'x-ratelimit-reset-requests': '6s', 'x-ratelimit-reset-tokens': '219ms', 'x-request-id': 'req_01jctkv8zeeqevwbdweyr79za6', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'set-cookie': '__cf_bm=Emdk58y6g80iw2pKoQtl0SHFA9XNvv088bVASvpg4tk-1731765052-1.0.1.1-sdIFQYSTPFzkfi7KEKO386xatgwjnQk.mlXdiYuqUWN947AEFCldQRqrRobXIGXEUprLFp_APrlaDpncc9tUlw; path=/; expires=Sat, 16-Nov-24 14:20:52 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None', 'server': 'cloudflare', 'cf-ray': '8e37f3d88f14ea4a-FCO', 'content-encoding': 'gzip'})
+2024-11-16 14:50:47,850 - groq._base_client - DEBUG - Request options: {'method': 'post', 'url': '/openai/v1/chat/completions', 'files': None, 'json_data': {'messages': [{'role': 'system', 'content': 'Given the identified data, convert it to a dictionary.'}, {'role': 'user', 'content': 'Based on the receipt text, I was able to identify the following information:\n\n- **Date**: The date mentioned on the receipt is 14-11-2024, which is November 14, 2024.\n- **Total Amount**: The total amount paid is L10 (which seems to be the local currency), and it\'s composed of the following items:\n  - Espresso: €0.22\n  - Pagamento elettronico: €3.50\n  The total amount before discount is 3.50 + 0.22 = €3.72. However, since it\'s not explicitly stated, I\'ll go with the amount mentioned on the receipt (though it seems like an error as the numbers on the receipt don\'t exactly add up to L10).\n- **Merchant**: The merchant is not explicitly stated on the receipt, but based on the name "CAFFE\' ESPRESSO", it seems to be a coffee shop.\n- **Items**: The items purchased are:\n  - Espresso (€0.22)\n  - Pagamento elettronico (€3.50)\n  Although the second item\'s name is in Italian, "Pagamento elettronico" can be translated to "Electronic Payment". This seems to be an odd item to purchase, but it might be a service or a fee associated with the electronic payment method.'}], 'model': 'llama-3.1-8b-instant', 'temperature': 0.7}}
+2024-11-16 14:50:47,851 - groq._base_client - DEBUG - Sending HTTP Request: POST https://api.groq.com/openai/v1/chat/completions
+2024-11-16 14:50:47,852 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'POST']>
+2024-11-16 14:50:47,852 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-16 14:50:47,852 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'POST']>
+2024-11-16 14:50:47,853 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-16 14:50:47,853 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'POST']>
+2024-11-16 14:50:48,442 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Sat, 16 Nov 2024 13:50:53 GMT'), (b'Content-Type', b'application/json'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Cache-Control', b'private, max-age=0, no-store, no-cache, must-revalidate'), (b'vary', b'Origin'), (b'x-ratelimit-limit-requests', b'14400'), (b'x-ratelimit-limit-tokens', b'20000'), (b'x-ratelimit-remaining-requests', b'14398'), (b'x-ratelimit-remaining-tokens', b'19361'), (b'x-ratelimit-reset-requests', b'11.373s'), (b'x-ratelimit-reset-tokens', b'1.917s'), (b'x-request-id', b'req_01jctkv9jye47r75k1xjjwjrr3'), (b'via', b'1.1 google'), (b'alt-svc', b'h3=":443"; ma=86400'), (b'CF-Cache-Status', b'DYNAMIC'), (b'Server', b'cloudflare'), (b'CF-RAY', b'8e37f3dccd4aea4a-FCO'), (b'Content-Encoding', b'gzip')])
+2024-11-16 14:50:48,442 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-16 14:50:48,442 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'POST']>
+2024-11-16 14:50:48,443 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-16 14:50:48,443 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-16 14:50:48,443 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-16 14:50:48,443 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Sat, 16 Nov 2024 13:50:53 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14398', 'x-ratelimit-remaining-tokens': '19361', 'x-ratelimit-reset-requests': '11.373s', 'x-ratelimit-reset-tokens': '1.917s', 'x-request-id': 'req_01jctkv9jye47r75k1xjjwjrr3', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'cf-ray': '8e37f3dccd4aea4a-FCO', 'content-encoding': 'gzip'})
+2024-11-16 14:50:48,642 - httpcore.connection - DEBUG - close.started
+2024-11-16 14:50:48,642 - httpcore.connection - DEBUG - close.complete
