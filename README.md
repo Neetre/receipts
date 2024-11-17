@@ -10,7 +10,8 @@
 This project consists of a receipt management system. It allows users to upload receipts, view them, and download them. The receipts are stored in a Qdrant database, which allows for fast search and retrieval of receipts. The project is built using the FastAPI framework and the Qdrant database.
 It also uses the Groq API to extract,analyze and format text from the receipts.
 
-[!IMPORTANT]
+### Note
+
 The web application is not yet implemented. The current implementation is a normal python script that interacts with the Qdrant database and the Groq API.
 
 ## Installation
