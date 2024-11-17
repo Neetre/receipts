@@ -101,10 +101,11 @@ class AnalyzeReceipts:
     def scan_receipt(self, file: str):
         image = Image.open(file)
         text = pytesseract.image_to_string(image)
-        identified_data = self.identify_data(text)
+        ic(text)
+        # identified_data = self.identify_data(text)
         # embedding = self.embed_text(identified_data)
-        receipt_data = self.text_to_dict(identified_data)
-        ic(receipt_data)
+        # receipt_data = self.text_to_dict(identified_data)
+        # ic(receipt_data)
         # self.store_receipt(receipt_data, embedding, identified_data)
 
 
