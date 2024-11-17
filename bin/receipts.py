@@ -84,7 +84,9 @@ class AnalyzeReceipts:
         image_np = np.array(image)
         brightness = -(brightness-100)
         contrast = 1
-        adjusted_image = cv2.addWeighted(image_np, contrast, np.zeros(image_np.shape, image_np.dtype), 0, brightness) 
+        adjusted_image = cv2.addWeighted(image_np, contrast, np.zeros(image_np.shape, image_np.dtype), 0, brightness)
+        kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
+        adjusted_image = cv2.filter2D(adjusted_image, -1, kernel) 
         cv2.imwrite("../data/adjusted_image.png", adjusted_image)
         image = Image.fromarray(adjusted_image)
         brightness, contrast = self.detect_brightness_contrast(image)
