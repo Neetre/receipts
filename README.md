@@ -11,7 +11,6 @@ This project consists of a receipt management system. It allows users to upload 
 It also uses the Groq API to extract,analyze and format text from the receipts.
 
 ### Note
-
 The web application is not yet implemented. The current implementation is a normal python script that interacts with the Qdrant database and the Groq API.
 
 ## Installation

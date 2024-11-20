@@ -5776,3 +5776,541 @@
 2024-11-17 19:42:29,834 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
 2024-11-17 19:42:29,837 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
 2024-11-17 19:42:29,837 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:22:34,789 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:22:34,790 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:22:35,082 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:23:17,631 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:23:17,632 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:23:17,924 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:23:18,302 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:23:18,505 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:23:23,015 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:23:23,016 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:23:23,330 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:23:27,419 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, 'Impossibile stabilire la connessione. Rifiuto persistente del computer di destinazione', None, 10061, None))
+2024-11-20 21:24:16,723 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:24:16,724 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:24:17,016 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:24:17,383 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:24:17,553 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:24:19,456 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:24:19,457 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:24:19,742 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:24:19,755 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016F9A935CD0>
+2024-11-20 21:24:19,755 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:24:19,755 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:24:19,755 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:24:19,755 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:24:19,755 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:24:19,758 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:24:19 GMT')])
+2024-11-20 21:24:19,759 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:24:19,759 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:24:19,759 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:24:19,759 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:24:19,759 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:24:19,759 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:24:19,759 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:24:19,761 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:24:19,761 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016FBCDC7450>
+2024-11-20 21:24:19,761 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,762 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:24:19,762 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,762 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:24:19,762 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,834 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:24:19 GMT')])
+2024-11-20 21:24:19,835 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:24:19,836 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,836 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:24:19,836 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:24:19,837 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:24:19,837 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:24:19,837 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:24:19,839 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:24:19,840 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016FBCDD8650>
+2024-11-20 21:24:19,840 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,840 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:24:19,840 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,840 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:24:19,840 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,842 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:24:19 GMT')])
+2024-11-20 21:24:19,843 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:24:19,843 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:24:19,843 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:24:19,843 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:24:19,843 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:24:19,843 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:24:19,843 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:24:19,844 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:24:19,864 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000016FBCDD96D0>
+2024-11-20 21:24:19,864 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:24:19,864 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:24:19,864 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:24:19,864 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:24:19,864 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:24:20,323 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:24:20 GMT')])
+2024-11-20 21:24:20,324 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:24:20,324 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:24:20,324 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:24:20,324 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:24:20,324 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:24:20,324 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:24:20,325 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:24:20,368 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:24:20,368 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:24:20,368 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:24:20,369 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:24:20,369 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:24:20,369 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:24:20,369 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:24:20,369 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:24:57,307 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:24:57,307 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:24:57,597 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:24:57,984 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:24:58,349 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:25:00,325 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:25:00,325 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:25:00,622 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:25:00,623 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000025A4CAB2010>
+2024-11-20 21:25:00,623 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:25:00,624 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:25:00,624 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:25:00,624 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:25:00,624 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:25:00,626 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:25:00 GMT')])
+2024-11-20 21:25:00,626 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:25:00,627 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:25:00,627 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:25:00,627 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:25:00,627 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:25:00,627 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:25:00,627 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:25:00,628 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:25:00,628 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000025A4CC3A9D0>
+2024-11-20 21:25:00,629 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,629 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:25:00,629 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,629 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:25:00,629 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,715 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:25:00 GMT')])
+2024-11-20 21:25:00,716 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:25:00,716 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,716 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:25:00,716 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:25:00,716 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:25:00,716 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:25:00,716 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:25:00,719 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:25:00,738 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000025A4CC44250>
+2024-11-20 21:25:00,738 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,738 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:25:00,738 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,738 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:25:00,738 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,740 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:25:00 GMT')])
+2024-11-20 21:25:00,740 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:25:00,740 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:25:00,741 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:25:00,741 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:25:00,741 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:25:00,741 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:25:00,741 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:25:00,741 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:25:00,742 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000025A4CC45490>
+2024-11-20 21:25:00,742 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:25:00,742 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:25:00,742 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:25:00,742 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:25:00,743 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:25:01,175 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:25:00 GMT')])
+2024-11-20 21:25:01,176 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:25:01,176 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:25:01,176 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:25:01,176 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:25:01,177 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:25:01,177 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:25:01,177 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:25:01,191 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:25:01,191 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:25:01,191 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:25:01,191 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:25:01,192 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:25:01,192 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:25:01,192 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:25:01,192 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:25:59,581 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:25:59,583 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:25:59,887 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:26:00,086 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:26:00,251 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:26:02,231 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:26:02,232 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:26:02,536 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:02,536 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000017B7F82F950>
+2024-11-20 21:26:02,536 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:26:02,537 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:02,537 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:26:02,537 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:02,537 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:26:02,539 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Wed, 20 Nov 2024 20:26:02 GMT')])
+2024-11-20 21:26:02,539 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:26:02,539 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:26:02,540 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:02,540 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:02,540 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:02,540 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:02,540 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:02,541 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:02,542 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000017B0205BD90>
+2024-11-20 21:26:02,542 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,542 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:02,542 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,542 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:02,542 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,617 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Wed, 20 Nov 2024 20:26:02 GMT')])
+2024-11-20 21:26:02,618 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:26:02,618 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,618 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:02,618 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:02,618 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:02,618 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:02,618 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:02,620 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:02,620 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000017B02068490>
+2024-11-20 21:26:02,621 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,621 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:02,621 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,621 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:02,621 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,623 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Wed, 20 Nov 2024 20:26:02 GMT')])
+2024-11-20 21:26:02,623 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:26:02,623 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:02,623 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:02,623 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:02,623 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:02,624 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:02,624 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:02,624 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:02,625 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000017B02069610>
+2024-11-20 21:26:02,625 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:26:02,625 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:02,625 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:26:02,626 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:02,626 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:26:03,074 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:26:03 GMT')])
+2024-11-20 21:26:03,074 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:26:03,074 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:26:03,074 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:03,074 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:03,074 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:03,074 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:03,075 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:03,085 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:26:03,085 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:26:03,085 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:26:03,086 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:26:03,086 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:26:03,086 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:26:03,086 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:26:03,086 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:26:45,973 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:26:45,973 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:26:46,271 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:26:46,635 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:26:47,001 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:26:48,975 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:26:48,975 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:26:49,290 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:49,291 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000257B3DD9750>
+2024-11-20 21:26:49,291 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:26:49,291 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:49,291 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:26:49,291 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:49,291 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:26:49,294 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:26:49 GMT')])
+2024-11-20 21:26:49,294 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:26:49,294 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:26:49,294 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:49,294 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:49,294 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:49,295 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:49,295 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:49,296 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:49,297 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000257B4125C50>
+2024-11-20 21:26:49,298 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,298 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:49,298 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,298 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:49,298 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,371 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:26:49 GMT')])
+2024-11-20 21:26:49,371 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:26:49,371 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,371 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:49,371 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:49,371 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:49,371 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:49,372 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:49,373 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:49,373 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000257B4127550>
+2024-11-20 21:26:49,374 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,374 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:49,374 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,374 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:49,374 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,376 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:26:49 GMT')])
+2024-11-20 21:26:49,376 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:26:49,376 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:26:49,377 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:49,377 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:49,377 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:49,377 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:49,377 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:49,377 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:26:49,378 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000257B411C710>
+2024-11-20 21:26:49,378 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:26:49,378 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:26:49,378 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:26:49,378 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:26:49,378 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:26:49,808 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:26:49 GMT')])
+2024-11-20 21:26:49,808 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:26:49,808 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:26:49,808 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:26:49,808 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:26:49,808 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:26:49,810 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:26:49,810 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:26:49,822 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:26:49,823 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:28:51,755 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:28:51,756 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:28:52,039 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:28:52,225 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:28:52,593 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:28:54,594 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:28:54,595 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:28:54,902 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:28:54,921 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x0000012937F22590>
+2024-11-20 21:28:54,921 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:28:54,921 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:28:54,921 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:28:54,922 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:28:54,922 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:28:54,923 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:28:54 GMT')])
+2024-11-20 21:28:54,924 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:28:54,924 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:28:54,924 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:28:54,924 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:28:54,924 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:28:54,924 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:28:54,924 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:28:54,925 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:28:54,926 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000129384AA790>
+2024-11-20 21:28:54,927 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:28:54,927 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:28:54,927 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:28:54,927 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:28:54,927 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:28:55,001 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:28:54 GMT')])
+2024-11-20 21:28:55,001 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:28:55,002 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:28:55,002 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:28:55,002 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:28:55,002 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:28:55,002 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:28:55,002 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:28:55,003 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:28:55,004 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000129384B8510>
+2024-11-20 21:28:55,004 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:28:55,004 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:28:55,004 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:28:55,005 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:28:55,005 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:28:55,007 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:28:54 GMT')])
+2024-11-20 21:28:55,007 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:28:55,007 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:28:55,007 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:28:55,007 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:28:55,007 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:28:55,007 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:28:55,008 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:28:55,008 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:28:55,009 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000129384B9710>
+2024-11-20 21:28:55,009 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:28:55,009 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:28:55,009 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:28:55,009 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:28:55,009 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:28:55,485 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:28:55 GMT')])
+2024-11-20 21:28:55,485 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:28:55,485 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:28:55,485 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:28:55,485 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:28:55,485 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:28:55,485 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:28:55,486 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:28:55,497 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:54:06,003 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:54:06,004 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:54:06,267 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:54:06,680 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:54:07,070 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:54:11,367 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:54:11,368 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:54:11,660 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:11,660 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000170F5224110>
+2024-11-20 21:54:11,660 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:54:11,661 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:11,661 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:54:11,661 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:11,661 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:54:11,666 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:54:11 GMT')])
+2024-11-20 21:54:11,666 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:54:11,667 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:54:11,667 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:11,667 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:11,667 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:11,667 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:11,668 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:11,670 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:11,670 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000170F528A4D0>
+2024-11-20 21:54:11,670 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,671 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:11,671 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,671 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:11,671 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,754 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:54:11 GMT')])
+2024-11-20 21:54:11,755 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:54:11,755 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,755 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:11,755 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:11,755 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:11,755 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:11,755 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:11,758 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:11,758 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000170F52888D0>
+2024-11-20 21:54:11,758 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,759 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:11,759 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,759 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:11,759 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,761 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'date', b'Wed, 20 Nov 2024 20:54:11 GMT')])
+2024-11-20 21:54:11,761 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:54:11,761 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:11,761 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:11,762 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:11,762 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:11,762 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:11,762 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:11,766 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:11,766 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x00000170F5294B10>
+2024-11-20 21:54:11,766 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:54:11,767 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:11,767 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:54:11,767 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:11,767 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:54:12,182 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Wed, 20 Nov 2024 20:54:11 GMT')])
+2024-11-20 21:54:12,183 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:54:12,183 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:54:12,183 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:12,183 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:12,183 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:12,183 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:12,183 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:12,223 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:54:12,223 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:54:12,223 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:54:12,224 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:54:12,224 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:54:12,224 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:54:12,224 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:54:12,224 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:54:29,509 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:54:29,511 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:54:29,809 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-20 21:54:30,031 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-20 21:54:30,203 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-20 21:54:32,405 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-20 21:54:32,406 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\Mattia\\Documents\\GitHub\\receipts\\.venv\\Lib\\site-packages\\certifi\\cacert.pem'
+2024-11-20 21:54:32,691 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:32,691 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D770054110>
+2024-11-20 21:54:32,691 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2024-11-20 21:54:32,692 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:32,692 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2024-11-20 21:54:32,692 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:32,692 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2024-11-20 21:54:32,694 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-encoding', b'gzip'), (b'content-type', b'application/json'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Wed, 20 Nov 2024 20:54:32 GMT')])
+2024-11-20 21:54:32,695 - httpx - INFO - HTTP Request: GET http://localhost:6333/collections/receipts/exists "HTTP/1.1 200 OK"
+2024-11-20 21:54:32,695 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2024-11-20 21:54:32,695 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:32,695 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:32,695 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:32,695 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:32,695 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:32,696 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:32,716 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D7700BDC90>
+2024-11-20 21:54:32,716 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,716 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:32,716 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,716 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:32,716 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,793 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'date', b'Wed, 20 Nov 2024 20:54:32 GMT')])
+2024-11-20 21:54:32,793 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:54:32,793 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,794 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:32,794 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:32,794 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:32,795 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:32,795 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:32,798 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:32,798 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D7700BFD50>
+2024-11-20 21:54:32,798 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,799 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:32,799 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,799 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:32,799 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,801 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:54:32 GMT')])
+2024-11-20 21:54:32,801 - httpx - INFO - HTTP Request: DELETE http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:54:32,801 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'DELETE']>
+2024-11-20 21:54:32,802 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:32,802 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:32,802 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:32,802 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:32,802 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:32,802 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-20 21:54:32,824 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.sync.SyncStream object at 0x000001D7700C8ED0>
+2024-11-20 21:54:32,824 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'PUT']>
+2024-11-20 21:54:32,824 - httpcore.http11 - DEBUG - send_request_headers.complete
+2024-11-20 21:54:32,824 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'PUT']>
+2024-11-20 21:54:32,824 - httpcore.http11 - DEBUG - send_request_body.complete
+2024-11-20 21:54:32,824 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'PUT']>
+2024-11-20 21:54:33,303 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'transfer-encoding', b'chunked'), (b'vary', b'accept-encoding, Origin, Access-Control-Request-Method, Access-Control-Request-Headers'), (b'content-type', b'application/json'), (b'content-encoding', b'gzip'), (b'date', b'Wed, 20 Nov 2024 20:54:33 GMT')])
+2024-11-20 21:54:33,303 - httpx - INFO - HTTP Request: PUT http://localhost:6333/collections/receipts "HTTP/1.1 200 OK"
+2024-11-20 21:54:33,304 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'PUT']>
+2024-11-20 21:54:33,304 - httpcore.http11 - DEBUG - receive_response_body.complete
+2024-11-20 21:54:33,304 - httpcore.http11 - DEBUG - response_closed.started
+2024-11-20 21:54:33,304 - httpcore.http11 - DEBUG - response_closed.complete
+2024-11-20 21:54:33,304 - httpcore.connection - DEBUG - close.started
+2024-11-20 21:54:33,304 - httpcore.connection - DEBUG - close.complete
+2024-11-20 21:54:33,314 - PIL.PngImagePlugin - DEBUG - STREAM b'IHDR' 16 13
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - STREAM b'iCCP' 41 1088
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - iCCP profile name b'kCGColorSpaceGenericGray'
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - Compression method 0
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - STREAM b'eXIf' 1141 230
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - STREAM b'pHYs' 1383 9
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - STREAM b'iTXt' 1404 995
+2024-11-20 21:54:33,315 - PIL.PngImagePlugin - DEBUG - STREAM b'IDAT' 2411 16384
+2024-11-20 21:54:33,853 - pytesseract - DEBUG - ['tesseract', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_ecivnpi4_input.PNG', 'C:\\Users\\Mattia\\AppData\\Local\\Temp\\tess_ecivnpi4', '-l', 'ita', 'txt']

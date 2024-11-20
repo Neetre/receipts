@@ -44,74 +44,117 @@ class ReceiptProcessor:
     def __init__(self):
         self.debug_mode = False
 
-    def detect_receipt(self, image: Image) -> Image:
+    def detect_receipt(self, image_np: np.array) -> Image:
         # identify the receipt in the image and crop it
-        image_np = np.array(image)  # image is already grayscale
-        blurred = cv2.GaussianBlur(image_np, (5, 5), 0)
-        edged = cv2.Canny(blurred, 75, 200)
+        # image_np = np.array(image)  # image is already grayscale
+        gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY) if len(image_np.shape) == 3 else image_np
+        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+        thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                       cv2.THRESH_BINARY, 11, 2)
 
-        contours, _ = cv2.findContours(edged, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-        contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
+        edged = cv2.Canny(thresh, 50, 200, apertureSize=3)
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+        edged = cv2.dilate(edged, kernel, iterations=1)
 
-        screenCnt = None
+        contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if not contours:
+            raise ValueError("No contours found in the image")
 
-        for c in contours:
-            peri = cv2.arcLength(c, True)
-            approx = cv2.approxPolyDP(c, 0.02 * peri, True)
+        # Filter contours by area and aspect ratio
+        valid_contours = []
+        for cnt in contours:
+            area = cv2.contourArea(cnt)
+            if area < 1000:  # Filter out small contours
+                continue
 
-            if len(approx) == 4:
-                screenCnt = approx
-                break
+            # Check aspect ratio
+            rect = cv2.minAreaRect(cnt)
+            width, height = rect[1]
+            if width == 0 or height == 0:
+                continue
 
-        if screenCnt is None:
-            raise ValueError("No receipt found in the image")
+            aspect_ratio = max(width, height) / min(width, height)
+            if aspect_ratio > 5:  # Filter out extremely elongated contours
+                continue
 
-        rect = cv2.minAreaRect(screenCnt)
-        box = cv2.boxPoints(rect)
-        box = np.int0(box)
+            valid_contours.append(cnt)
 
-        width = int(rect[1][0])
-        height = int(rect[1][1])
+        if not valid_contours:
+            raise ValueError("No valid receipt contours found")
 
-        src_pts = box.astype("float32")
-        dst_pts = np.array([[0, height-1],
-                    [0, 0],
-                    [width-1, 0],
-                    [width-1, height-1]], dtype="float32")
+        receipt_contour = max(valid_contours, key=cv2.contourArea)  # largest valid
+
+        peri = cv2.arcLength(receipt_contour, True)
+        approx = cv2.approxPolyDP(receipt_contour, 0.02 * peri, True)
+
+        if len(approx) != 4:  # no 4 corners
+            rect = cv2.minAreaRect(receipt_contour)
+            approx = cv2.boxPoints(rect)
+
+        approx = self._sort_corners(approx)
+
+        src_pts = approx.astype("float32")
+        width = int(max(
+            np.linalg.norm(src_pts[0] - src_pts[1]),
+            np.linalg.norm(src_pts[2] - src_pts[3])
+        ))
+        height = int(max(
+            np.linalg.norm(src_pts[0] - src_pts[3]),
+            np.linalg.norm(src_pts[1] - src_pts[2])
+        ))
+
+        dst_pts = np.array([
+            [0, 0],
+            [width - 1, 0],
+            [width - 1, height - 1],
+            [0, height - 1]
+            ], dtype="float32")
 
         M = cv2.getPerspectiveTransform(src_pts, dst_pts)
         warped = cv2.warpPerspective(image_np, M, (width, height))
 
-        return Image.fromarray(warped)
+        return warped
+    
+    def _sort_corners(self, pts: np.ndarray) -> np.ndarray:
+        rect = np.zeros((4, 2), dtype="float32")
 
-    def detect_brightness_contrast(self, image: Image):
-        image_np = np.array(image)
+        s = pts.sum(axis=1)
+        rect[0] = pts[np.argmin(s)]
+        rect[2] = pts[np.argmax(s)]
+
+        diff = np.diff(pts, axis=1)
+        rect[1] = pts[np.argmin(diff)]
+        rect[3] = pts[np.argmax(diff)]
+
+        return rect
+
+    def detect_brightness_contrast(self, image: np.array):
         # Convert to grayscale if the image is in color
-        if len(image_np.shape) == 3:
-            image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2GRAY)
+        if len(image.shape) == 3:
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         # Calculate brightness as the mean pixel value
-        brightness = np.mean(image_np)
+        brightness = np.mean(image)
         # Calculate contrast as the standard deviation of pixel values
-        contrast = np.std(image_np)
+        contrast = np.std(image)
         return brightness, contrast
 
-    def preprocess_receipt(self, image: Image) -> Image:
-        brightness, contrast = self.detect_brightness_contrast(image)
-        print(f"Brightness: {brightness}, Contrast: {contrast}")
-        
+    def preprocess_receipt(self, image: Image) -> np.array:
         image_np = np.array(image)
+        brightness, contrast = self.detect_brightness_contrast(image_np)
+        print(f"Brightness: {brightness}, Contrast: {contrast}")
+
         brightness = -(brightness-100)
         ic(brightness)
         contrast = 1.5
         adjusted_image = cv2.addWeighted(image_np, contrast, np.zeros(image_np.shape, image_np.dtype), 0, brightness)
+
         kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
-        adjusted_image = cv2.filter2D(adjusted_image, -1, kernel) 
-        image = Image.fromarray(adjusted_image)
-        brightness, contrast = self.detect_brightness_contrast(image)
-        print(f"Adjusted Brightness: {brightness}, Adjusted Contrast: {contrast}")
-        adjusted_image = self.detect_receipt(image)
+        adjusted_image = cv2.filter2D(adjusted_image, -1, kernel)
+        print(type(adjusted_image))
+
+        adjusted_image = self.detect_receipt(adjusted_image)
         cv2.imwrite("../data/adjusted_image.png", adjusted_image)
-        return image
+        return adjusted_image
 
 class AnalyzeReceipts:
     
@@ -197,11 +240,11 @@ class AnalyzeReceipts:
         image = self.processor.preprocess_receipt(image)
         text = pytesseract.image_to_string(image, lang="ita")
         ic(text)
-        identified_data = self.identify_data(text)
-        ic(identified_data)
+        # identified_data = self.identify_data(text)
+        # ic(identified_data)
         # embedding = self.embed_text(identified_data)
-        receipt_data = self.text_to_dict(identified_data)
-        ic(receipt_data)
+        # receipt_data = self.text_to_dict(identified_data)
+        # ic(receipt_data)
         # if self.is_receipt_valid(receipt_data):
         # self.store_receipt(receipt_data, embedding, identified_data)
 
@@ -224,7 +267,7 @@ def main():
     #    analyze_receipts.scan_receipt(file)
     #    c += 1
     analyze_receipts.scan_receipt("../data/clan/Route/Cibo/2024-08-07Lidl2-1.png")
-
+    
 
 if __name__ == "__main__":
     main()
