@@ -44,7 +44,7 @@ class ReceiptProcessor:
     def __init__(self):
         self.debug_mode = False
 
-    def detect_receipt(self, image_np: np.array) -> Image:
+    def detect_receipt(self, image_np: np.array) -> np.array:
         # identify the receipt in the image and crop it
         # image_np = np.array(image)  # image is already grayscale
         gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY) if len(image_np.shape) == 3 else image_np
@@ -140,28 +140,26 @@ class ReceiptProcessor:
 
     def preprocess_receipt(self, image: Image) -> np.array:
         image_np = np.array(image)
+        
         brightness, contrast = self.detect_brightness_contrast(image_np)
-        print(f"Brightness: {brightness}, Contrast: {contrast}")
-
+        #print(f"Brightness: {brightness}, Contrast: {contrast}")
         brightness = -(brightness-100)
-        ic(brightness)
+        #ic(brightness)
         contrast = 1.5
         adjusted_image = cv2.addWeighted(image_np, contrast, np.zeros(image_np.shape, image_np.dtype), 0, brightness)
 
         kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
         adjusted_image = cv2.filter2D(adjusted_image, -1, kernel)
-        print(type(adjusted_image))
 
         adjusted_image = self.detect_receipt(adjusted_image)
-        cv2.imwrite("../data/adjusted_image.png", adjusted_image)
+        # cv2.imwrite("../data/adjusted_image.png", adjusted_image)
         return adjusted_image
 
 class AnalyzeReceipts:
-    
     def __init__(self):
         self.qdrant_client = QdrantClient(host="localhost", port=6333)
         self.tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-        self. model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+        self.model = AutoModel.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
         self.client_groq = Groq(api_key=GROQ_API_KEY)
         self.processor = ReceiptProcessor()
         self.init_collection()
@@ -235,16 +233,16 @@ class AnalyzeReceipts:
         return True
 
     def scan_receipt(self, file: str):
-        print(file)
+        print("Nome foto: ", file)
         image = Image.open(file)
         image = self.processor.preprocess_receipt(image)
         text = pytesseract.image_to_string(image, lang="ita")
         ic(text)
-        # identified_data = self.identify_data(text)
-        # ic(identified_data)
+        identified_data = self.identify_data(text)
+        ic(identified_data)
         # embedding = self.embed_text(identified_data)
-        # receipt_data = self.text_to_dict(identified_data)
-        # ic(receipt_data)
+        receipt_data = self.text_to_dict(identified_data)
+        ic(receipt_data)
         # if self.is_receipt_valid(receipt_data):
         # self.store_receipt(receipt_data, embedding, identified_data)
 
