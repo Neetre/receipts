@@ -1,4 +1,6 @@
 import os
+from fastapi import FastAPI, UploadFile, File
+import uvicorn
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
@@ -7,7 +9,9 @@ from PIL import Image
 import numpy as np
 from transformers import AutoTokenizer, AutoModel
 from groq import Groq
+import json
 import torch
+import io
 import logging
 from typing import List, Optional, Dict
 import datetime
@@ -196,18 +200,34 @@ class AnalyzeReceipts:
         ]
         return self.generate_with_groq(prompt)
     
-    def embed_text(self, text: str):
+    def generate_embedding(self, text: str) -> list:
         inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True)
         with torch.no_grad():
             outputs = self.model(**inputs)
-        return outputs.pooler_output
+        embeddings = outputs.last_hidden_state.mean(dim=1)
+        return embeddings[0].numpy().tolist()
     
-    def text_to_dict(self, text: str):
+    def define_data_fict(self, raw_text, text):
+        if not text.startswith('['):
+            text = text[text.find('['):]
+        if not text.endswith(']'):
+            text = text[:text.rfind(']')+1]
+        text_json = json.loads(text)
+        return Receipts(
+            id=str(hash(raw_text))[:8],
+            date=datetime.datetime.strptime(text_json["date"], "%Y-%m-%d"),
+            total_amount=text_json["total_amount"],
+            merchant=text_json["merchant"],
+            items=text_json["items"]
+        )
+    
+    def text_to_dict(self, text: str) -> Receipts:
         prompt = [
-            {"role": "system", "content": "Given the identified data, convert it to a dictionary. If you can't identify any of these, leave it blank."},
+            {"role": "system", "content": "Given the identified data, return a JSON object with the date, total amount, merchant, and items fields. If any of these fields are missing or they seeem incorrect, leave them blank."},
             {"role": "user", "content": text}
         ]
-        return self.generate_with_groq(prompt)
+        result = self.generate_with_groq(prompt)
+        return self.define_data_fict(text, result)
     
     def store_receipt(self, receipt_data: Receipts, embedding: np.array, receipt_text: str):
         self.qdrant_client.upsert(
@@ -231,21 +251,62 @@ class AnalyzeReceipts:
         if receipt_data.date is None or receipt_data.total_amount is None or receipt_data.merchant is None or receipt_data.items is None:
             return False
         return True
-
-    def scan_receipt(self, file: str):
-        print("Nome foto: ", file)
-        image = Image.open(file)
+    
+    def extract_text(self, image_bytes, is_file: bool):
+        if not is_file:
+            image = Image.open(io.BytesIO(image_bytes))
+        else:
+            print("Nome foto: ", image_bytes)
+            image = Image.open(image_bytes)
         image = self.processor.preprocess_receipt(image)
         text = pytesseract.image_to_string(image, lang="ita")
-        ic(text)
+        return text
+
+    def scan_receipt(self, file: str):
+        text = self.extract_text(file, True)
         identified_data = self.identify_data(text)
-        ic(identified_data)
+        
         # embedding = self.embed_text(identified_data)
+        
         receipt_data = self.text_to_dict(identified_data)
-        ic(receipt_data)
+
         # if self.is_receipt_valid(receipt_data):
         # self.store_receipt(receipt_data, embedding, identified_data)
 
+app = FastAPI()
+analyze_receipts = AnalyzeReceipts()
+
+@app.post("/upload_receipt/")
+async def upload_receipt(file: UploadFile = File(...)):
+    contents = await file.read()
+    receipt_text = analyze_receipts.extract_text(contents, False)
+    embedding = analyze_receipts.generate_embedding(receipt_text)
+
+    identified_data = analyze_receipts.identify_data(receipt_text)
+    receipt_data = analyze_receipts.text_to_dict(identified_data)
+    
+    analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
+    return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
+
+
+@app.get("/search_similar_receipts/{receipt_id}")
+async def search_similar_receipts(receipt_id: str):
+    search_results = analyze_receipts.qdrant_client.search(
+        collection_name="receipts",
+        query_vector=analyze_receipts.generate_embedding(receipt_id),
+        limit=5
+    )
+    return {"similar_receipts": search_results}
+
+
+@app.get("/get_receipt/{receipt_id}")
+async def get_receipt(receipt_id: str):
+    receipt = analyze_receipts.qdrant_client.retrieve(
+        collection_name="receipts",
+        ids=[receipt_id]
+    )
+    return receipt[0] if receipt else {"error": "Receipt not found"}
+    
 
 def get_files(path):
     for root, dirs, files in os.walk(path):

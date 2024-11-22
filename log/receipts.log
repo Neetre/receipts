@@ -7230,3 +7230,12 @@
 2024-11-21 16:59:05,516 - groq._base_client - DEBUG - HTTP Response: POST https://api.groq.com/openai/v1/chat/completions "200 OK" Headers({'date': 'Thu, 21 Nov 2024 15:59:09 GMT', 'content-type': 'application/json', 'transfer-encoding': 'chunked', 'connection': 'keep-alive', 'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate', 'vary': 'Origin', 'x-ratelimit-limit-requests': '14400', 'x-ratelimit-limit-tokens': '20000', 'x-ratelimit-remaining-requests': '14398', 'x-ratelimit-remaining-tokens': '18666', 'x-ratelimit-reset-requests': '10.942s', 'x-ratelimit-reset-tokens': '4.002s', 'x-request-id': 'req_01jd7q5ps5fvyt3vdt6kvhe9xh', 'via': '1.1 google', 'alt-svc': 'h3=":443"; ma=86400', 'cf-cache-status': 'DYNAMIC', 'server': 'cloudflare', 'cf-ray': '8e61e29798f30e1b-MXP', 'content-encoding': 'gzip'})
 2024-11-21 16:59:05,743 - httpcore.connection - DEBUG - close.started
 2024-11-21 16:59:05,744 - httpcore.connection - DEBUG - close.complete
+2024-11-23 00:31:35,988 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-23 00:31:35,988 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\matti\\Documents\\GitHub\\receipts\\.venv\\lib\\site-packages\\certifi\\cacert.pem'
+2024-11-23 00:31:36,005 - urllib3.connectionpool - DEBUG - Starting new HTTPS connection (1): huggingface.co:443
+2024-11-23 00:31:36,210 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/11" 200 0
+2024-11-23 00:31:36,597 - urllib3.connectionpool - DEBUG - https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/11" 200 0
+2024-11-23 00:31:37,624 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2024-11-23 00:31:37,624 - httpx - DEBUG - load_verify_locations cafile='C:\\Users\\matti\\Documents\\GitHub\\receipts\\.venv\\lib\\site-packages\\certifi\\cacert.pem'
+2024-11-23 00:31:37,633 - httpcore.connection - DEBUG - connect_tcp.started host='localhost' port=6333 local_address=None timeout=5.0 socket_options=None
+2024-11-23 00:31:41,712 - httpcore.connection - DEBUG - connect_tcp.failed exception=ConnectError(ConnectionRefusedError(10061, 'Impossibile stabilire la connessione. Rifiuto persistente del computer di destinazione', None, 10061, None))
