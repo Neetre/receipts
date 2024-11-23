@@ -208,25 +208,38 @@ class AnalyzeReceipts:
         return embeddings[0].numpy().tolist()
     
     def define_data_fict(self, raw_text, text):
-        if not text.startswith('['):
-            text = text[text.find('['):]
-        if not text.endswith(']'):
-            text = text[:text.rfind(']')+1]
-        text_json = json.loads(text)
-        return Receipts(
+        try:
+            text = text.strip()
+            if not text.startswith('{'):
+                text = text[text.find('{'):]
+            if not text.endswith('}'):
+                text = text[:text.rfind('}')+1]
+            text_json = json.loads(text)
+            print(text_json)
+            return Receipts(
             id=str(hash(raw_text))[:8],
-            date=datetime.datetime.strptime(text_json["date"], "%Y-%m-%d"),
-            total_amount=text_json["total_amount"],
-            merchant=text_json["merchant"],
-            items=text_json["items"]
-        )
-    
+            date=text_json.get("date").replace("/", "-") if text_json.get("date") else None,
+            total_amount=text_json.get("total_amount"),
+            merchant=text_json.get("merchant"),
+            items=text_json.get("items", [])
+            )
+        except (json.JSONDecodeError, ValueError) as e:
+            print(f"Warning: Could not parse JSON response. Error: {e}")
+            return Receipts(
+            id=str(hash(raw_text))[:8],
+            date=None,
+            total_amount=None,
+            merchant=None,
+            items=[]
+            )
+
     def text_to_dict(self, text: str) -> Receipts:
         prompt = [
             {"role": "system", "content": "Given the identified data, return a JSON object with the date, total amount, merchant, and items fields. If any of these fields are missing or they seeem incorrect, leave them blank."},
             {"role": "user", "content": text}
         ]
         result = self.generate_with_groq(prompt)
+        ic(result)
         return self.define_data_fict(text, result)
     
     def store_receipt(self, receipt_data: Receipts, embedding: np.array, receipt_text: str):
@@ -265,11 +278,9 @@ class AnalyzeReceipts:
     def scan_receipt(self, file: str):
         text = self.extract_text(file, True)
         identified_data = self.identify_data(text)
-        
         # embedding = self.embed_text(identified_data)
         
         receipt_data = self.text_to_dict(identified_data)
-
         # if self.is_receipt_valid(receipt_data):
         # self.store_receipt(receipt_data, embedding, identified_data)
 
