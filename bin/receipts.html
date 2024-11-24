@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <title>Receipt Manager</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+        <meta name="description" content="Receipt Manager">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Receipt Manager</h1>
+
+            <div class="upload-section">
+                <h2>Upload New Receipt</h2>
+                <input type="file" id="receiptFile" accept="immage/*">
+                <button onclick="uploadReceipt()">Upload</button>
+            </div>
+
+            <div class="receipts-section">
+                <h2>Your Receipts</h2>
+                <div class="receipts-grid" id="receiptsGrid"></div>
+                <div class="pagination">
+                    <button onclick="loadPreviousPage()">Previous</button>
+                    <button onclick="loadNextPage()">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let currentPage = 0;
+            const itemsPerPage = 10;
+
+            async function loadReceipts() {
+                try {
+                    const response = await axios.get(`http://localhost:8000/receipts/?offset=${currentPage * itemsPerPage}&limit=${itemsPerPage}`);
+                    const receiptsGrid = document.getElementById('receiptsGrid');
+                    receiptsGrid.innerHTML = '';
+                    
+                    response.data.receipts.forEach(receipt => {
+                        const card = document.createElement('div');
+                        card.className = 'receipt-card';
+                        card.innerHTML = `
+                            <h3>${receipt.merchant}</h3>
+                            <p>Date: ${new Date(receipt.date).toLocaleDateString()}</p>
+                            <p>Amount: $${receipt.total_amount.toFixed(2)}</p>
+                            <button onclick="viewReceipt('${receipt.id}')">View Dettails</button>
+                        `;
+                        receiptsGrid.appendChild(card);
+                    })
+                } catch (error) {
+                    console.error('Error loading receipts:', error);
+                }
+            }
+
+            async function uploadReceipt(){
+                const fileInput = document.getElementById('receiptFile');
+                const file = fileInput.files[0];
+                if (!file){
+                    alert('Please select a file first');
+                    return;
+                }
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    await axios.post('http://localhost:8000/upload_receipt/', formData);
+                    alert ('Receipt uploaded successfully');
+                    loadReceipts();
+                } catch (error) {
+                    console.error('Error uploading receipt:', error);
+                    alert('Error uploading receipt');
+                }
+
+                function loadPreviousPage() {
+                    if (currentPage > 0) {
+                        currentPage --;
+                        loadReceipts()
+                    }
+                }
+
+                function loadNextPage() {
+                    currentPage ++;
+                    loadReceipts();
+                }
+
+                async function viewReceipt(id) {
+                    try {
+                        const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
+                        alert(JSON.stringify(response.data, null, 2));
+                    } catch (error) {
+                        console.error('Error viewing receipt:', error);
+                    }
+                }
+            }
+
+            loadReceipts();
+        </script>
+    </body> 
+</html>

@@ -206,7 +206,7 @@ class AnalyzeReceipts:
             outputs = self.model(**inputs)
         embeddings = outputs.last_hidden_state.mean(dim=1)
         return embeddings[0].numpy().tolist()
-    
+
     def define_data_fict(self, raw_text, text):
         try:
             text = text.strip()
@@ -341,3 +341,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+    analyze_receipts = AnalyzeReceipts()
+    uvicorn.run(app, host="0.0.0.0", port=8000)
