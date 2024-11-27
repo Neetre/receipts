@@ -69,11 +69,6 @@ class AnalyzeReceipts:
             )
         )
 
-    def read_saved_receipts(self):
-        collection_info = self.qdrant_client.get_collection("receipts")
-        total_points = collection_info.points_count
-        # da finire
-
     def generate_with_groq(self, messages: List[Dict[str, str]]) -> str:
         completion = self.client_groq.chat.completions.create(
             messages=messages,

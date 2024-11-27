@@ -1,11 +1,44 @@
-import os
-
 from fastapi import FastAPI, UploadFile, File
 import uvicorn
-from receipts import AnalyzeReceipts
+from receipts import AnalyzeReceipts, ReceiptResponse
 
 app = FastAPI()
 analyze_receipts = AnalyzeReceipts()
+
+
+@app.get("/receipts/")
+async def get_all_receipts(
+    offset: int = 0,
+    limit: int = 10,
+    sort_by: str = "date",
+    sort_order: str = "desc"
+):
+    collection_info = analyze_receipts.qdrant_client.get_collection("receipts")
+    total_points = collection_info.points_count
+    
+    scroll_response = analyze_receipts.qdrant_client.scroll(
+        collection_name="receipts",
+        limit=limit,
+        offset=offset,
+        with_payload=True,
+        with_vectors=False,
+    )
+    
+    receipts = []
+    for point in scroll_response[0]:
+        receipt = point.payload
+        receipt["id"] = point.id
+        receipts.append(receipt)
+        
+    receipts.sort(
+        key=lambda x: x[sort_by],
+        reverse=(sort_order.lower() == "desc")
+    )
+    
+    return ReceiptResponse(
+        receipts=receipts,
+        total_count=total_points
+    )
 
 @app.post("/upload_receipt/")
 async def upload_receipt(file: UploadFile = File(...)):
