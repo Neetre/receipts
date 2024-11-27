@@ -114,5 +114,5 @@ class ReceiptProcessor:
         adjusted_image = cv2.filter2D(adjusted_image, -1, kernel)
 
         adjusted_image = self.detect_receipt(adjusted_image)
-        # cv2.imwrite("../data/adjusted_image.png", adjusted_image)
+        cv2.imwrite("../data/adjusted_image.png", adjusted_image)
         return adjusted_image

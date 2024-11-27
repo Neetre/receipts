@@ -91,8 +91,8 @@ class AnalyzeReceipts:
         embeddings = outputs.last_hidden_state.mean(dim=1)
         return embeddings[0].numpy().tolist()
     
-    def clean_date(self, data_json: str):
-        date_parts = data_json.replace("/", "-").split("-") if data_json else None
+    def clean_date(self, date_json: str):
+        date_parts = date_json.replace("/", "-").split("-") if date_json else None
         if date_parts and len(date_parts) == 3:
             date_parts[0], date_parts[2] = date_parts[2], date_parts[0]
             date = "-".join(date_parts)
@@ -118,6 +118,7 @@ class AnalyzeReceipts:
                 text = text[:text.rfind('}')+1]
             text_json = json.loads(text)
             print(text_json)
+            logging.info(text_json)
 
             date = self.clean_date(text_json.get("date"))
             self.clean_total_amount(text_json.get("total_amount"))
@@ -199,6 +200,7 @@ Rules:
             image = Image.open(image_bytes)
         image = self.processor.preprocess_receipt(image)
         text = pytesseract.image_to_string(image, lang="ita")
+        logging.info(text)
         return text
 
     def scan_receipt(self, file: str):
