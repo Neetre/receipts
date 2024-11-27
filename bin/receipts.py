@@ -1,23 +1,29 @@
 import os
+import json
+import io
+import datetime
+from typing import List, Optional, Dict
+from pydantic import BaseModel
+import uuid
+
 from fastapi import FastAPI, UploadFile, File
 import uvicorn
-from pydantic import BaseModel
+
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 import pytesseract
 from PIL import Image
 import numpy as np
+
 from transformers import AutoTokenizer, AutoModel
 from groq import Groq
-import json
 import torch
-import io
-import logging
-from typing import List, Optional, Dict
-import datetime
-import cv2
+
+from processing import ReceiptProcessor
+
 from dotenv import load_dotenv
 load_dotenv()
+import logging
 from icecream import ic
 ic.enable()
 
@@ -36,128 +42,14 @@ class Receipts(BaseModel):
     total_amount: float
     merchant: str
     items: List[dict]
-    image_path: Optional[str]
+    
+# image_path: Optional[str]
 
 
 class ReceiptResponse(BaseModel):
     receipts: List[dict]
     total_count: int
 
-
-class ReceiptProcessor:
-    def __init__(self):
-        self.debug_mode = False
-
-    def detect_receipt(self, image_np: np.array) -> np.array:
-        # identify the receipt in the image and crop it
-        # image_np = np.array(image)  # image is already grayscale
-        gray = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY) if len(image_np.shape) == 3 else image_np
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-        thresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                       cv2.THRESH_BINARY, 11, 2)
-
-        edged = cv2.Canny(thresh, 50, 200, apertureSize=3)
-        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
-        edged = cv2.dilate(edged, kernel, iterations=1)
-
-        contours, _ = cv2.findContours(edged, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        if not contours:
-            raise ValueError("No contours found in the image")
-
-        # Filter contours by area and aspect ratio
-        valid_contours = []
-        for cnt in contours:
-            area = cv2.contourArea(cnt)
-            if area < 1000:  # Filter out small contours
-                continue
-
-            # Check aspect ratio
-            rect = cv2.minAreaRect(cnt)
-            width, height = rect[1]
-            if width == 0 or height == 0:
-                continue
-
-            aspect_ratio = max(width, height) / min(width, height)
-            if aspect_ratio > 5:  # Filter out extremely elongated contours
-                continue
-
-            valid_contours.append(cnt)
-
-        if not valid_contours:
-            raise ValueError("No valid receipt contours found")
-
-        receipt_contour = max(valid_contours, key=cv2.contourArea)  # largest valid
-
-        peri = cv2.arcLength(receipt_contour, True)
-        approx = cv2.approxPolyDP(receipt_contour, 0.02 * peri, True)
-
-        if len(approx) != 4:  # no 4 corners
-            rect = cv2.minAreaRect(receipt_contour)
-            approx = cv2.boxPoints(rect)
-
-        approx = self._sort_corners(approx)
-
-        src_pts = approx.astype("float32")
-        width = int(max(
-            np.linalg.norm(src_pts[0] - src_pts[1]),
-            np.linalg.norm(src_pts[2] - src_pts[3])
-        ))
-        height = int(max(
-            np.linalg.norm(src_pts[0] - src_pts[3]),
-            np.linalg.norm(src_pts[1] - src_pts[2])
-        ))
-
-        dst_pts = np.array([
-            [0, 0],
-            [width - 1, 0],
-            [width - 1, height - 1],
-            [0, height - 1]
-            ], dtype="float32")
-
-        M = cv2.getPerspectiveTransform(src_pts, dst_pts)
-        warped = cv2.warpPerspective(image_np, M, (width, height))
-
-        return warped
-    
-    def _sort_corners(self, pts: np.ndarray) -> np.ndarray:
-        rect = np.zeros((4, 2), dtype="float32")
-
-        s = pts.sum(axis=1)
-        rect[0] = pts[np.argmin(s)]
-        rect[2] = pts[np.argmax(s)]
-
-        diff = np.diff(pts, axis=1)
-        rect[1] = pts[np.argmin(diff)]
-        rect[3] = pts[np.argmax(diff)]
-
-        return rect
-
-    def detect_brightness_contrast(self, image: np.array):
-        # Convert to grayscale if the image is in color
-        if len(image.shape) == 3:
-            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        # Calculate brightness as the mean pixel value
-        brightness = np.mean(image)
-        # Calculate contrast as the standard deviation of pixel values
-        contrast = np.std(image)
-        return brightness, contrast
-
-    def preprocess_receipt(self, image: Image) -> np.array:
-        image_np = np.array(image)
-        
-        brightness, contrast = self.detect_brightness_contrast(image_np)
-        #print(f"Brightness: {brightness}, Contrast: {contrast}")
-        brightness = -(brightness-100)
-        #ic(brightness)
-        contrast = 1.5
-        adjusted_image = cv2.addWeighted(image_np, contrast, np.zeros(image_np.shape, image_np.dtype), 0, brightness)
-
-        kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
-        adjusted_image = cv2.filter2D(adjusted_image, -1, kernel)
-
-        adjusted_image = self.detect_receipt(adjusted_image)
-        # cv2.imwrite("../data/adjusted_image.png", adjusted_image)
-        return adjusted_image
 
 class AnalyzeReceipts:
     def __init__(self):
@@ -169,8 +61,8 @@ class AnalyzeReceipts:
         self.init_collection()
 
     def init_collection(self):
-        if self.qdrant_client.collection_exists("receipts"):
-            self.qdrant_client.delete_collection("receipts")
+        # if self.qdrant_client.collection_exists("receipts"):
+        #     self.qdrant_client.delete_collection("receipts")
 
         self.qdrant_client.recreate_collection(
             collection_name="receipts",
@@ -195,7 +87,7 @@ class AnalyzeReceipts:
 
     def identify_data(self, receipt_text):
         prompt = [
-            {"role": "system", "content": "Given the receipt text, identify the date, total amount, merchant, and items. If you can't identify any of these, leave it blank."},
+            {"role": "system", "content": "Given the receipt text, identify the date, 'total_amount', merchant, and items. If you can't identify any of these, leave it blank."},
             {"role": "user", "content": receipt_text}
         ]
         return self.generate_with_groq(prompt)
@@ -206,8 +98,26 @@ class AnalyzeReceipts:
             outputs = self.model(**inputs)
         embeddings = outputs.last_hidden_state.mean(dim=1)
         return embeddings[0].numpy().tolist()
+    
+    def clean_date(self, data_json: str):
+        date_parts = data_json.replace("/", "-").split("-") if data_json else None
+        if date_parts and len(date_parts) == 3:
+            date_parts[0], date_parts[2] = date_parts[2], date_parts[0]
+            date = "-".join(date_parts)
+        print("\nDATE: ", date)
+        return date
+    
+    def clean_total_amount(self, total_amount: str):
+        if type(total_amount) is not float:
+            total_amount = float(total_amount.replace("€", ""))
+            print("\nTOTAL AMOUNT: ", total_amount)
+        return total_amount
+    
+    def generate_uuid_from_text(self, text):
+        namespace_uuid = uuid.NAMESPACE_DNS
+        return str(uuid.uuid5(namespace_uuid, text))
 
-    def define_data_fict(self, raw_text, text):
+    def define_data_dict(self, raw_text, text):
         try:
             text = text.strip()
             if not text.startswith('{'):
@@ -216,9 +126,17 @@ class AnalyzeReceipts:
                 text = text[:text.rfind('}')+1]
             text_json = json.loads(text)
             print(text_json)
+
+            date = self.clean_date(text_json.get("date"))
+            self.clean_total_amount(text_json.get("total_amount"))
+            # print("DATE: ", date)
+
+            unique_id = self.generate_uuid_from_text(raw_text)
+            print(unique_id)  # old: str(abs(hash(raw_text)))[:8]
+
             return Receipts(
-            id=str(hash(raw_text))[:8],
-            date=text_json.get("date").replace("/", "-") if text_json.get("date") else None,
+            id=unique_id,
+            date=date,
             total_amount=text_json.get("total_amount"),
             merchant=text_json.get("merchant"),
             items=text_json.get("items", [])
@@ -226,7 +144,7 @@ class AnalyzeReceipts:
         except (json.JSONDecodeError, ValueError) as e:
             print(f"Warning: Could not parse JSON response. Error: {e}")
             return Receipts(
-            id=str(hash(raw_text))[:8],
+            id=unique_id,
             date=None,
             total_amount=None,
             merchant=None,
@@ -234,13 +152,34 @@ class AnalyzeReceipts:
             )
 
     def text_to_dict(self, text: str) -> Receipts:
+        # old prompt: Given the identified data, return a JSON object with the date, total amount, merchant, and items fields (dictionary with name, number and price). If any of these fields are missing or they seeem incorrect, leave them blank. And dont add comments in the json part.
         prompt = [
-            {"role": "system", "content": "Given the identified data, return a JSON object with the date, total amount, merchant, and items fields. If any of these fields are missing or they seeem incorrect, leave them blank."},
+            {"role": "system", "content": '''
+Given a transaction or receipt input, create a JSON object with the following structure:
+{
+    "date": "",
+    "total_amount": "",
+    "merchant": "",
+    "items": [
+        {
+            "name": "",
+            "number": "",
+            "price": ""
+        }
+    ]
+}
+
+Rules:
+- If any field is missing or appears incorrect, leave it as an empty string
+- Do not include any comments in the JSON
+- Ensure the JSON is valid and well-formatted
+- Respond ONLY with the JSON object
+'''},
             {"role": "user", "content": text}
         ]
         result = self.generate_with_groq(prompt)
-        ic(result)
-        return self.define_data_fict(text, result)
+        # ic(result)
+        return self.define_data_dict(text, result)
     
     def store_receipt(self, receipt_data: Receipts, embedding: np.array, receipt_text: str):
         self.qdrant_client.upsert(
@@ -259,11 +198,6 @@ class AnalyzeReceipts:
                 )
             ]
         )
-
-    def is_receipt_valid(self, receipt_data: Receipts):
-        if receipt_data.date is None or receipt_data.total_amount is None or receipt_data.merchant is None or receipt_data.items is None:
-            return False
-        return True
     
     def extract_text(self, image_bytes, is_file: bool):
         if not is_file:
@@ -278,11 +212,11 @@ class AnalyzeReceipts:
     def scan_receipt(self, file: str):
         text = self.extract_text(file, True)
         identified_data = self.identify_data(text)
-        # embedding = self.embed_text(identified_data)
+        embedding = self.generate_embedding(identified_data)
         
         receipt_data = self.text_to_dict(identified_data)
-        # if self.is_receipt_valid(receipt_data):
-        # self.store_receipt(receipt_data, embedding, identified_data)
+        print("ID: ", receipt_data.id)
+        self.store_receipt(receipt_data, embedding, identified_data)
 
 app = FastAPI()
 analyze_receipts = AnalyzeReceipts()
@@ -342,4 +276,4 @@ def main():
 if __name__ == "__main__":
     main()
     analyze_receipts = AnalyzeReceipts()
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # uvicorn.run(app, host="0.0.0.0", port=8000)
