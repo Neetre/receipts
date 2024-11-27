@@ -6,9 +6,6 @@ from typing import List, Optional, Dict
 from pydantic import BaseModel
 import uuid
 
-from fastapi import FastAPI, UploadFile, File
-import uvicorn
-
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 import pytesseract
@@ -104,13 +101,13 @@ class AnalyzeReceipts:
         if date_parts and len(date_parts) == 3:
             date_parts[0], date_parts[2] = date_parts[2], date_parts[0]
             date = "-".join(date_parts)
-        print("\nDATE: ", date)
+        # print("\nDATE: ", date)
         return date
     
     def clean_total_amount(self, total_amount: str):
         if type(total_amount) is not float:
             total_amount = float(total_amount.replace("€", ""))
-            print("\nTOTAL AMOUNT: ", total_amount)
+            # print("\nTOTAL AMOUNT: ", total_amount)
         return total_amount
     
     def generate_uuid_from_text(self, text):
@@ -132,7 +129,7 @@ class AnalyzeReceipts:
             # print("DATE: ", date)
 
             unique_id = self.generate_uuid_from_text(raw_text)
-            print(unique_id)  # old: str(abs(hash(raw_text)))[:8]
+            #print(unique_id)  old: str(abs(hash(raw_text)))[:8]
 
             return Receipts(
             id=unique_id,
@@ -218,40 +215,6 @@ Rules:
         print("ID: ", receipt_data.id)
         self.store_receipt(receipt_data, embedding, identified_data)
 
-app = FastAPI()
-analyze_receipts = AnalyzeReceipts()
-
-@app.post("/upload_receipt/")
-async def upload_receipt(file: UploadFile = File(...)):
-    contents = await file.read()
-    receipt_text = analyze_receipts.extract_text(contents, False)
-    embedding = analyze_receipts.generate_embedding(receipt_text)
-
-    identified_data = analyze_receipts.identify_data(receipt_text)
-    receipt_data = analyze_receipts.text_to_dict(identified_data)
-    
-    analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
-    return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
-
-
-@app.get("/search_similar_receipts/{receipt_id}")
-async def search_similar_receipts(receipt_id: str):
-    search_results = analyze_receipts.qdrant_client.search(
-        collection_name="receipts",
-        query_vector=analyze_receipts.generate_embedding(receipt_id),
-        limit=5
-    )
-    return {"similar_receipts": search_results}
-
-
-@app.get("/get_receipt/{receipt_id}")
-async def get_receipt(receipt_id: str):
-    receipt = analyze_receipts.qdrant_client.retrieve(
-        collection_name="receipts",
-        ids=[receipt_id]
-    )
-    return receipt[0] if receipt else {"error": "Receipt not found"}
-    
 
 def get_files(path):
     for root, dirs, files in os.walk(path):
@@ -276,4 +239,3 @@ def main():
 if __name__ == "__main__":
     main()
     analyze_receipts = AnalyzeReceipts()
-    # uvicorn.run(app, host="0.0.0.0", port=8000)
