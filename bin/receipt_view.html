@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <title>Receipt Viewer</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+        <meta name="description" content="Receipt Manager">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="receipt-section">
+                <h2>Receipt Details</h2>
+                <div class="receipt-details" id="receiptDetails"></div>
+            </div>
+        </div>
+        <script>
+            async function viewReceipt(receiptId) {
+                try {
+                    const response = await axios.get(`http://localhost:8000/get_receipt/${receiptId}`);
+                    console.log('Receipt:', response.data);
+                    const receiptDetails = document.getElementById('receiptDetails');
+                    const receipt = response.data;
+
+                    if (receipt.merchant && receipt.date && receipt.total_amount && receipt.items) {
+                        receiptDetails.innerHTML = `
+                        <h3>Merchant: ${receipt.merchant}</h3>
+                        <p>Date: ${new Date(receipt.date).toLocaleDateString()}</p>
+                        <p>Amount: €${receipt.total_amount}</p>
+                        <ul>Items: ${receipt.payload.items.map(item => `
+                            <li>
+                                ${item.name} 
+                                ${item.number ? `(Qty: ${item.number})` : ''} 
+                                - €${item.price}
+                            </li>
+                            `).join('')}
+                        </ul>
+                        `;
+                    } else {
+                        receiptDetails.innerHTML = '<p>Receipt data is incomplete or missing.<p>'
+                    }
+                    
+                } catch (error) {
+                    console.error('Error loading receipt:', error);
+                    document.getElementById('receiptDetails').innerHTML = '<p>Error loading receipt data.</p>';
+                }
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            const receiptId = urlParams.get('id');
+
+            // Call viewReceipt with the extracted receiptId
+            if (receiptId) {
+                viewReceipt(receiptId);
+            } else {
+                console.error('No receipt Id found in URL');
+            }
+        </script>
+    </body>
+</html>
