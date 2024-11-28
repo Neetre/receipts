@@ -58,7 +58,8 @@ class AnalyzeReceipts:
         self.init_collection()
 
     def init_collection(self):
-        # if self.qdrant_client.collection_exists("receipts"):
+        if self.qdrant_client.collection_exists("receipts"):
+            return
         #     self.qdrant_client.delete_collection("receipts")
 
         self.qdrant_client.recreate_collection(

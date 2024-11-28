@@ -1,8 +1,14 @@
 from fastapi import FastAPI, UploadFile, File
+from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 from receipts import AnalyzeReceipts, ReceiptResponse
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
+
 analyze_receipts = AnalyzeReceipts()
 
 
@@ -35,10 +41,10 @@ async def get_all_receipts(
         reverse=(sort_order.lower() == "desc")
     )
     
-    return ReceiptResponse(
-        receipts=receipts,
-        total_count=total_points
-    )
+    return {
+        "total_points": total_points,
+        "receipts": receipts
+    }
 
 @app.post("/upload_receipt/")
 async def upload_receipt(file: UploadFile = File(...)):
