@@ -21,6 +21,13 @@ body {
     text-align: center;
 }
 
+.search-section {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .recepts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -44,9 +51,13 @@ body {
 
 .receipt-section {
     margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 button {
+    margin-top: 10px;
     padding: 8px 16px;
     background-color: #007bff;
     color: white;
@@ -57,4 +68,10 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+footer {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
 }

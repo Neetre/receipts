@@ -1,6 +1,10 @@
+from typing import Optional
+
 from fastapi import FastAPI, UploadFile, File
+from fastapi import Query
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn
+
 from receipts import AnalyzeReceipts, ReceiptResponse
 
 app = FastAPI()
@@ -59,14 +63,35 @@ async def upload_receipt(file: UploadFile = File(...)):
     return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
 
 
-@app.get("/search_similar_receipts/{receipt_id}")
-async def search_similar_receipts(receipt_id: str):
+@app.get("/search_receipts/{receipt_id}")
+async def search_receipts(
+    receipt_id: Optional[str] = None,
+    merchant: Optional[str] = None,
+    date_from: Optional[str] = None,
+    date_to: Optional[str] = None,
+    min_amount: Optional[float] = None,
+    max_amount: Optional[float] = None,
+    limit: int = Query(5, ge=1, le=100)
+):
+    query = {}
+
+
+    if receipt_id:
+        query["receipt_id"] = receipt_id
+    if merchant:
+        query["merchant"] = merchant
+    if date_from and date_to:
+        query["date"] = {"$gte": date_from, "$lte": date_to}
+    if min_amount and max_amount:
+        query["total_amount"] = {"$gte": min_amount, "$lte": max_amount}
+
     search_results = analyze_receipts.qdrant_client.search(
         collection_name="receipts",
-        query_vector=analyze_receipts.generate_embedding(receipt_id),
-        limit=5
+        query=analyze_receipts.generate_embedding(query),
+        limit=limit
     )
-    return {"similar_receipts": search_results}
+
+    return {"search_results": search_results}
 
 
 @app.get("/get_receipt/{receipt_id}")
@@ -75,7 +100,7 @@ async def get_receipt(receipt_id: str):
         collection_name="receipts",
         ids=[receipt_id]
     )
-    return receipt[0] if receipt else {"error": "Receipt not found"}
+    return {"receipt": receipt[0].payload} if receipt and len(receipt) > 0 else {"error": "Receipt not found"}
 
            
 def main():

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
@@ -14,6 +14,7 @@
                 <h2>Receipt Details</h2>
                 <div class="receipt-details" id="receiptDetails"></div>
             </div>
+            <button onclick="home()">Home</button>
         </div>
         <script>
             async function viewReceipt(receiptId) {
@@ -21,14 +22,15 @@
                     const response = await axios.get(`http://localhost:8000/get_receipt/${receiptId}`);
                     console.log('Receipt:', response.data);
                     const receiptDetails = document.getElementById('receiptDetails');
-                    const receipt = response.data;
-
+                    const receipt = response.data.receipt;
+                    console.log(receipt)
                     if (receipt.merchant && receipt.date && receipt.total_amount && receipt.items) {
                         receiptDetails.innerHTML = `
                         <h3>Merchant: ${receipt.merchant}</h3>
                         <p>Date: ${new Date(receipt.date).toLocaleDateString()}</p>
                         <p>Amount: €${receipt.total_amount}</p>
-                        <ul>Items: ${receipt.payload.items.map(item => `
+                        <p>Items:</p>
+                        <ul>${receipt.items.map(item => `
                             <li>
                                 ${item.name} 
                                 ${item.number ? `(Qty: ${item.number})` : ''} 
@@ -46,6 +48,7 @@
                     document.getElementById('receiptDetails').innerHTML = '<p>Error loading receipt data.</p>';
                 }
             }
+
             const urlParams = new URLSearchParams(window.location.search);
             const receiptId = urlParams.get('id');
 
@@ -55,6 +58,21 @@
             } else {
                 console.error('No receipt Id found in URL');
             }
+
+            async function home() {
+                try {
+                    // const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
+                    // alert(JSON.stringify(response.data, null, 2));
+                    window.location.href = `receipts.html`;
+                } catch (error) {
+                    console.error('Error going home:', error);
+                }
+            }
+            
         </script>
     </body>
+    <footer>
+        <p>Receipt Manager</p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a>  &copy; <script>document.write(new Date().getFullYear());</script></p>
+    </footer>
 </html>
