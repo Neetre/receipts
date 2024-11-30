@@ -222,18 +222,14 @@ def get_files(path):
 
 
 def main():
-    c = 0
     analyze_receipts = AnalyzeReceipts()
-    # for file in get_files("../data/Route/Cibo"):
-    #    if c == 2:
-    #        break
-#
-    #    print(file)
-    #    analyze_receipts.scan_receipt(file)
-    #    c += 1
-    analyze_receipts.scan_receipt("../data/clan/Route/Cibo/2024-08-07Lidl2-1.png")
+    file = input("Insert the name of the receipt file---> ").strip()
+    if file.endswith(".png") or file.endswith(".jpg") or file.endswith(".jpeg"):
+        file_path = f"../data/{file}"
+        analyze_receipts.scan_receipt(file_path)
+    else:
+        print(f"File extension invalid: {file.split(".")[-1]}")
     
 
 if __name__ == "__main__":
     main()
-    analyze_receipts = AnalyzeReceipts()

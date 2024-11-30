@@ -5,7 +5,7 @@ from fastapi import Query
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
-from receipts import AnalyzeReceipts, ReceiptResponse
+from receipts import AnalyzeReceipts
 
 app = FastAPI()
 app.add_middleware(
