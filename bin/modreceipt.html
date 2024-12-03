@@ -9,6 +9,107 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        
+        <div class="container">
+            <div class="recdipt-edit-section">
+                <h2>Edit Receipt</h2>
+                <form id="receiptForm">
+                    <label for="merchant">Merchant:</label>
+                    <input type="text" id="merchant" name="merchant" required>
+                    <label for="date_from">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                    <label for="totalAmount">Total Amount</label>
+                    <input type="number" id="totalAmount" name="totalAmount" required><br><br>
+                    <label for="items">Items:</label>
+                    <div id="items">
+                        <div class="item">
+                            <label for ="itemName">Name:</label>
+                            <input type="text" name="itemName" required>
+                            <label for ="itemPrice">Price:</label>
+                            <input type="text" name="itemPrice" required>
+                            <label for ="itemNumber">Number:</label>
+                            <input type="text" name="itemNumber" required>
+                        </div>
+                    </div>
+                    <button type="button" onclick="addItem()">Add Item</button>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+            <button onclick="view()">View</button>
+            <button onclick="home()">Home</button>
+        </div>
+        <script>
+            function addItem(){
+                const items = document.getElementById('items');
+                const item = document.createElement('div');
+                item.classList.add('item');
+                item.innerHTML = `
+                <label for ="itemName">Name:</label>
+                <input type="text" name="itemName" required>
+                <label for ="itemPrice">Price:</label>
+                <input type="text" name="itemPrice" required>
+                <label for ="itemNumber">Number:</label>
+                <input type="text" name="itemNumber">
+                `;
+                items.appendChild(item);
+            }
+
+            async function saveReceipt(event){
+                event.preventDefault();
+                const receiptForm = document.getElementById('receiptForm')
+                const formData = new FormData(receiptForm);
+                const receiptData = {
+                    merchant: formData.get('merchant'),
+                    date: formData.get('date'),
+                    total_amount: formData.get('totalAmount'),
+                    items: []
+                };
+                const itemInputs = receiptForm.querySelectorAll('.item');
+                itemInputs.forEach(itemInput => {
+                    const itemName = itemInput.querySelector('[name="itemName"]').value;
+                    const itemPrice = itemInput.querySelector('[name="itemPrice"]').value;
+                    const itemNumber = itemInput.querySelector('[name="itemNumber"]').value;
+                    receiptData.items.push({
+                        name: itemName,
+                        price: itemPrice,
+                        number: itemNumber
+                    });
+                });
+                console.log("Receipt Data", receiptData);
+                try {
+                    const response = await axios.post('http://localhost:8000/save_receipt/', { receiptId: receiptId, receipt: receiptData });
+                    console.log('Receipt saved:', response.data);
+                    window.location.href = `receipt_view.html?id=${response.data.receiptId}`;
+                } catch (error) {
+                    console.error("Error saving receipt", error);
+                    alert("Error saving receipt. Please try again.");
+                }
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            const receiptId = urlParams.get('id');
+
+            async function home() {
+                try {
+                    if (!confirm("Exiting without saving?")) {
+                        return;
+                    }
+                    window.location.href = `receipts.html`;
+                } catch (error) {
+                    console.error('Error going home:', error);
+                }
+            }
+
+            async function view() {
+                try {
+                    if (!confirm("Exiting without saving?")) {
+                        return;
+                    }
+                    window.location.href = `receipt_view.html?id=${receiptId}`;
+                } catch (error) {
+                    console.error('Error viewing receipt:', error);
+                }
+            }
+
+            document.getElementById('receiptForm').addEventListener('submit', saveReceipt);
+        </script>
     </body>
 </html>

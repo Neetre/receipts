@@ -193,6 +193,17 @@ Rules:
             ]
         )
     
+    def update_receipt(self, receipt_id: str, receipt_data: dict):
+        self.qdrant_client.update(
+            collection_name="receipts",
+            points=[
+                {
+                    "id": receipt_id,
+                    "payload": receipt_data
+                }
+            ]
+        )
+    
     def extract_text(self, image_bytes, is_file: bool):
         if not is_file:
             image = Image.open(io.BytesIO(image_bytes))
@@ -228,7 +239,7 @@ def main():
         file_path = f"../data/{file}"
         analyze_receipts.scan_receipt(file_path)
     else:
-        print(f"File extension invalid: {file.split(".")[-1]}")
+        print(f"File extension invalid: {file.split('.')[-1]}")
     
 
 if __name__ == "__main__":

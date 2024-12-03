@@ -1,7 +1,6 @@
-from typing import Optional
+from typing import Optional, List
 
-from fastapi import FastAPI, UploadFile, File
-from fastapi import Query
+from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
@@ -52,15 +51,19 @@ async def get_all_receipts(
 
 @app.post("/upload_receipt/")
 async def upload_receipt(file: UploadFile = File(...)):
-    contents = await file.read()
-    receipt_text = analyze_receipts.extract_text(contents, False)
-    embedding = analyze_receipts.generate_embedding(receipt_text)
+    try:
+        contents = await file.read()
+        receipt_text = analyze_receipts.extract_text(contents, False)
+        embedding = analyze_receipts.generate_embedding(receipt_text)
 
-    identified_data = analyze_receipts.identify_data(receipt_text)
-    receipt_data = analyze_receipts.text_to_dict(identified_data)
-    
-    analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
-    return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
+        identified_data = analyze_receipts.identify_data(receipt_text)
+        receipt_data = analyze_receipts.text_to_dict(identified_data)
+        
+        analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
+        return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Receipt processing error: {str(e)}")
 
 
 @app.get("/search_receipts/{receipt_id}")
@@ -94,15 +97,59 @@ async def search_receipts(
     return {"search_results": search_results}
 
 
+@app.get("/search_similar_receipts/{receipt_id}")
+async def search_similar_receipts(receipt_id: str):
+    search_results = analyze_receipts.qdrant_client.search(
+        collection_name="receipts",
+        query_vector=analyze_receipts.generate_embedding(receipt_id),
+        limit=5
+    )
+    receipts = []
+    for point in search_results:
+        receipt = point.payload
+        receipt["id"] = point.id
+        receipts.append(receipt)
+
+    return {"receipts": receipts}
+
+
 @app.get("/get_receipt/{receipt_id}")
 async def get_receipt(receipt_id: str):
     receipt = analyze_receipts.qdrant_client.retrieve(
         collection_name="receipts",
         ids=[receipt_id]
     )
+    # print(receipt[0].payload)
     return {"receipt": receipt[0].payload} if receipt and len(receipt) > 0 else {"error": "Receipt not found"}
 
-           
+
+@app.get("/save_receipt/{receipt_id}")
+async def save_receipt(
+    receipt_id: str,
+    receipt_data: dict
+):
+    try:
+        receipt = analyze_receipts.qdrant_client.retrieve(
+            collection_name="receipts",
+            ids=[receipt_id]
+        )
+        if not receipt or len(receipt) == 0:
+            raise HTTPException(status_code=404, detail="Receipt not found")
+
+        receipt_data = receipt_data.dict()
+
+        receipt[0].payload["date"] = receipt_data["date"].isoformat()
+        receipt[0].payload["total_amount"] = receipt_data["totalAmount"]
+        receipt[0].payload["merchant"] = receipt_data["merchant"]
+        receipt[0].payload["items"] = receipt_data["items"]
+
+        analyze_receipts.update_receipt(receipt_id, receipt[0].payload)
+        return {"message": "Receipt updated successfully"}
+
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Could not update receipt: {str(e)}")
+
+
 def main():
     uvicorn.run(app, host="0.0.0.0", port=8000)
 

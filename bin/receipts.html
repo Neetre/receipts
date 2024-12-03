@@ -18,9 +18,14 @@
                 <button onclick="uploadReceipt()">Upload</button>
             </div>
 
-            <!--
+            
             <div class="search-section">
-                <h2>Search Receipts</h2>
+                <label for="search">Search:</label>
+                <input type="text" id="search" name="search" placeholder="Search by receipt ID">
+                <button onclick="searchReceipt()">Search</button>
+                <div id="results"></div>
+
+                <!--
                 <form id="searchForm">
                     <label for="receipt_id">Receipt ID:</label>
                     <input type="text" id="receipt_id" name="receipt_id"><br><br>
@@ -37,9 +42,9 @@
                     <button type="submit">Search</button>
                 </form>
                 <div id="results"></div>
+            -->
             </div>
             <br><br>
-        -->
 
             <div class="receipts-section">
                 <h2>Your Receipts</h2>
@@ -62,7 +67,6 @@
                     receiptsGrid.innerHTML = '';
     
                     response.data.receipts.forEach(receipt => {
-                        console.log(receipt)
                         const card = document.createElement('div');
                         card.className = 'receipt-card';
                         card.innerHTML = `
@@ -118,6 +122,29 @@
                     window.location.href = `receipt_view.html?id=${id}`;
                 } catch (error) {
                     console.error('Error viewing receipt:', error);
+                }
+            }
+
+            async function searchReceipt() {
+                const search = document.getElementById('search').value;
+                try {
+                    const response = await axios.get(`http://localhost:8000/search_similar_receipts/${search}`);
+                    const results = document.getElementById('results');
+                    results.innerHTML = '';
+                    response.data.receipts.forEach(receipt => {
+                        console.log(receipt);
+                        const card = document.createElement('div');
+                        card.className = 'receipt-card';
+                        card.innerHTML = `
+                            <h3>${receipt.merchant}</h3>
+                            <p>Date: ${new Date(receipt.date).toLocaleDateString()}</p>
+                            <p>Amount: €${receipt.total_amount.toFixed(2)}</p>
+                            <button onclick="viewReceipt('${receipt.id}')">View Details</button>
+                        `;
+                        results.appendChild(card);
+                    });
+                } catch (error) {
+                    console.error('Error searching receipts:', error);
                 }
             }
     

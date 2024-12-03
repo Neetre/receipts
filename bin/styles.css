@@ -66,6 +66,10 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.item {
+    margin-top: 10px;
+}
+
 button {
     margin-top: 10px;
     padding: 8px 16px;
