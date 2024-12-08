@@ -1,4 +1,5 @@
 from typing import Optional, List
+import argparse
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from starlette.middleware.cors import CORSMiddleware
@@ -150,8 +151,26 @@ async def save_receipt(
         raise HTTPException(status_code=400, detail=f"Could not update receipt: {str(e)}")
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="API for receipt processing")
+    parser.add_argument(
+        "--host",
+        type=str,
+        default="0.0.0.0.",
+        help="Host for the API server"
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=8000,
+        help="Port for the API server"
+    )
+    return parser.parse_args()
+
+
 def main():
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    args = parse_args()
+    uvicorn.run(app, host=args.host, port=args.port)
 
 
 if __name__ == "__main__":
