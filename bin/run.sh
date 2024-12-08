@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /sites/receipts/
+
 cd ..
 if [ ! -d ".venv" ]; then
     echo "Virtual environment not found. Creating one..."
