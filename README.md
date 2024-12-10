@@ -24,7 +24,7 @@ Run the .sh script to setup all the environment:
 
    ```bash
    cd bin
-   ./setup.sh
+   ./run.sh
    ```
 
 Or follow the steps below:
