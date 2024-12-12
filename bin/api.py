@@ -2,6 +2,7 @@ from typing import Optional, List
 import argparse
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
+from fastapi.responses import FileResponse
 import uvicorn
 
 from receipts import AnalyzeReceipts
@@ -9,6 +10,11 @@ from receipts import AnalyzeReceipts
 app = FastAPI()
 
 analyze_receipts = AnalyzeReceipts()
+
+
+@app.get("/")
+def load_template_page():
+    return FileResponse("index.html")
 
 
 @app.get("/receipts/")
