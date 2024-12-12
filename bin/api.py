@@ -3,6 +3,7 @@ import argparse
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 
 from receipts import AnalyzeReceipts
@@ -12,9 +13,11 @@ app = FastAPI()
 analyze_receipts = AnalyzeReceipts()
 
 
+app.mount("/static", StaticFiles(directory="bin"), name="static")
+
 @app.get("/")
 def load_template_page():
-    return FileResponse("receipts.html")
+    return FileResponse("bin/receipts.html")
 
 
 @app.get("/receipts/")

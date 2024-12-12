@@ -31,7 +31,7 @@ if [ "$(docker ps -q -f name=qdrant)" ]; then
     echo "Docker container is already running."
 else
     echo "Docker container is not running. Starting container..."
-    docker run -d -p 6333:6333 -p 6334:6334 -v "$(pwd)/qdrant_storage:/qdrant/storage:z" qdrant/qdrant name=qdrant
+    docker run -d -p 6333:6333 -p 6334:6334 --name qdrant -v "$(pwd)/qdrant_storage:/qdrant/storage:z" qdrant/qdrant 
 fi
 
 cd bin
