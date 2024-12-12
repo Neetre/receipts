@@ -14,7 +14,7 @@ analyze_receipts = AnalyzeReceipts()
 
 @app.get("/")
 def load_template_page():
-    return FileResponse("index.html")
+    return FileResponse("receipts.html")
 
 
 @app.get("/receipts/")
