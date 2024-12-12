@@ -2,16 +2,11 @@ from typing import Optional, List
 import argparse
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
-from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
 from receipts import AnalyzeReceipts
 
 app = FastAPI()
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=['*']
-)
 
 analyze_receipts = AnalyzeReceipts()
 

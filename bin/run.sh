@@ -31,5 +31,9 @@ echo "Running Docker container in detached mode..."
 docker run -d -p 6333:6333 -p 6334:6334 -v "$(pwd)/qdrant_storage:/qdrant/storage:z" qdrant/qdrant
 
 cd bin
+
+echo "Installing Python dependencies..."
+pip install -r ../requirements.txt
+
 echo "Running the main application..."
 python3 ./api.py --host 0.0.0.0 --port 8000
