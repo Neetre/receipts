@@ -2,6 +2,8 @@
 
 cd /sites/receipts/
 
+cd ..
+pwd
 if [ ! -d ".venv" ]; then
     echo "Virtual environment not found. Creating one..."
     python3 -m venv .venv
