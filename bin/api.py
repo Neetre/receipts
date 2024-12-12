@@ -4,11 +4,16 @@ import argparse
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.cors import CORSMiddleware
 import uvicorn
 
 from receipts import AnalyzeReceipts
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 
 analyze_receipts = AnalyzeReceipts()
 
