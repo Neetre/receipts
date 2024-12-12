@@ -1,15 +1,22 @@
 from typing import Optional, List
 import argparse
 
-from fastapi import FastAPI, UploadFile, File, HTTPException, Query
+from fastapi import FastAPI, UploadFile, File, HTTPException, Query, Request
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.trustedhost import TrustedHostMiddleware
 import uvicorn
 
 from receipts import AnalyzeReceipts
 
-app = FastAPI()
+app = FastAPI(
+    title="Receipts API",
+    description="API for processing receipts",
+    docs_url='/docs',
+    redoc_url='/redoc',
+    openapi_url='/openapi.json'
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=['*']
@@ -23,6 +30,20 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/")
 def load_template_page():
     return FileResponse("receipts.html")
+
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    if request.method == "POST" and "multipart/form-data" in request.headers.get("content-type", ""):
+        max_file_size = 10 * 1024 * 1024  # 10 MB
+        content_length = int(request.headers.get("content-length", 0))
+        if content_length > max_file_size:
+            return JSONResponse(
+                status_code=413, 
+                content={"detail": "File too large. Maximum size is 10 MB"}
+            )
+    response = await call_next(request)
+    return response
 
 
 @app.get("/receipts/")
@@ -185,7 +206,12 @@ def parse_args():
 
 def main():
     args = parse_args()
-    uvicorn.run(app, host=args.ip_address if not args.domain else args.domain, port=args.port)
+    uvicorn.run(app,
+                host=args.ip_address if not args.domain else args.domain,
+                port=args.port,
+                limit_max_request_size=10 * 1024 * 1024,
+                timeout_keep_alive=30,
+                log_level="info")
 
 
 if __name__ == "__main__":
