@@ -13,7 +13,7 @@ app = FastAPI()
 analyze_receipts = AnalyzeReceipts()
 
 
-app.mount("/static", StaticFiles(directory="bin"), name="static")
+app.mount("/static", name="static")
 
 @app.get("/")
 def load_template_page():
