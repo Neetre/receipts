@@ -6,7 +6,7 @@
         <title>Receipt Viewer</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
         <meta name="description" content="Receipt Viewer">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="/static/styles.css">
     </head>
     <body>
         <div class="container">
@@ -20,7 +20,7 @@
         <script>
             async function viewReceipt(receiptId) {
                 try {
-                    const response = await axios.get(`http://localhost:8000/get_receipt/${receiptId}`);
+                    const response = await axios.get(`http://${BASE_URL}/get_receipt/${receiptId}`);
                     console.log('Receipt:', response.data);
                     const receiptDetails = document.getElementById('receiptDetails');
                     const receipt = response.data.receipt;

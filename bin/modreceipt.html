@@ -6,7 +6,7 @@
         <title>Receipt Editor</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
         <meta name="description" content="Receipt Editor">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="/static/styles.css">
     </head>
     <body>
         <div class="container">
@@ -76,7 +76,7 @@
                 });
                 console.log("Receipt Data", receiptData);
                 try {
-                    const response = await axios.post('http://localhost:8000/save_receipt/', { receiptId: receiptId, receipt: receiptData });
+                    const response = await axios.post(`http://${BASE_URL}/save_receipt/`, { receiptId: receiptId, receipt: receiptData });
                     console.log('Receipt saved:', response.data);
                     window.location.href = `receipt_view.html?id=${response.data.receiptId}`;
                 } catch (error) {
