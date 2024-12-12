@@ -27,8 +27,12 @@ if ! command -v tesseract &> /dev/null; then
     echo "Tesseract-OCR installed successfully."
 fi
 
-echo "Running Docker container in detached mode..."
-docker run -d -p 6333:6333 -p 6334:6334 -v "$(pwd)/qdrant_storage:/qdrant/storage:z" qdrant/qdrant
+if [ "$(docker ps -q -f name=qdrant)" ]; then
+    echo "Docker container is already running."
+else
+    echo "Docker container is not running. Starting container..."
+    docker run -d -p 6333:6333 -p 6334:6334 -v "$(pwd)/qdrant_storage:/qdrant/storage:z" qdrant/qdrant name=qdrant
+fi
 
 cd bin
 
