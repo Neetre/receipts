@@ -209,7 +209,6 @@ def main():
     uvicorn.run(app,
                 host=args.ip_address if not args.domain else args.domain,
                 port=args.port,
-                reload=True,
                 ws_max_size=10 * 1024 * 1024,
                 timeout_keep_alive=30,
                 log_level="info")
