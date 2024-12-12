@@ -2,7 +2,7 @@ from typing import Optional, List
 import argparse
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query, Request
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
@@ -209,7 +209,8 @@ def main():
     uvicorn.run(app,
                 host=args.ip_address if not args.domain else args.domain,
                 port=args.port,
-                limit_max_request_size=10 * 1024 * 1024,
+                reload=True,
+                ws_max_size=10 * 1024 * 1024,
                 timeout_keep_alive=30,
                 log_level="info")
 
