@@ -155,6 +155,12 @@ def parse_args():
         help="Host for the API server"
     )
     parser.add_argument(
+        "--domain",
+        type=str,
+        default="0.0.0.0",
+        help='Dominio del server'
+    )
+    parser.add_argument(
         "--port",
         type=int,
         default=8000,
