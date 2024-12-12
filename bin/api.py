@@ -170,7 +170,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    uvicorn.run(app, host=args.host, port=args.port)
+    uvicorn.run(app, host=args.ip_address if not args.domain else args.domain, port=args.port)
 
 
 if __name__ == "__main__":

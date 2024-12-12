@@ -2,7 +2,6 @@
 
 cd /sites/receipts/
 
-cd ..
 if [ ! -d ".venv" ]; then
     echo "Virtual environment not found. Creating one..."
     python3 -m venv .venv
@@ -10,13 +9,13 @@ fi
 source .venv/bin/activate
 
 # da rimuovere in caso
-if ! command -v docker &> /dev/null; then
-    echo "Docker not found. Installing Docker..."
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sh get-docker.sh
-    rm get-docker.sh
-    echo "Docker installed successfully."
-fi
+# if ! command -v docker &> /dev/null; then
+#     echo "Docker not found. Installing Docker..."
+#     curl -fsSL https://get.docker.com -o get-docker.sh
+#     sh get-docker.sh
+#     rm get-docker.sh
+#     echo "Docker installed successfully."
+# fi
 
 if ! command -v tesseract &> /dev/null; then
     echo "Tesseract-OCR not found. Installing Tesseract-OCR..."
@@ -31,4 +30,4 @@ docker run -d -p 6333:6333 -p 6334:6334 -v "$(pwd)/qdrant_storage:/qdrant/storag
 
 cd bin
 echo "Running the main application..."
-python3 ./api.py --host 0.0.0.0 --port 5000
+python3 ./api.py --host 0.0.0.0 --port 8000
