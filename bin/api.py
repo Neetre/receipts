@@ -17,7 +17,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/")
 def load_template_page():
-    return FileResponse("bin/receipts.html")
+    return FileResponse("receipts.html")
 
 
 @app.get("/receipts/")
