@@ -92,12 +92,20 @@ async def upload_receipt(file: UploadFile = File(...)):
     try:
         contents = await file.read()
         receipt_text = analyze_receipts.extract_text(contents, False)
+        logging.info("Extracted text from receipt")
+        logging.info(receipt_text)
         embedding = analyze_receipts.generate_embedding(receipt_text)
+        logging.info("Generated embedding for receipt")
 
         identified_data = analyze_receipts.identify_data(receipt_text)
+        logging.info("Identified data from receipt")
+        logging.info(identified_data)
         receipt_data = analyze_receipts.text_to_dict(identified_data)
+        logging.info("Converted identified data to dictionary")
+        logging.info(receipt_data)
         
         analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
+        logging.info("Stored receipt in Qdrant")
         return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
 
     except Exception as e:
