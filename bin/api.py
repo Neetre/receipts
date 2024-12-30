@@ -8,6 +8,13 @@ from starlette.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 import uvicorn
 
+import logging
+logging.basicConfig(
+    filename="../log/receipts.log",
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
 from receipts import AnalyzeReceipts
 
 app = FastAPI(

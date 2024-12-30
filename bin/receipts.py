@@ -26,12 +26,6 @@ ic.enable()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
-logging.basicConfig(
-    filename="../log/receipts.log",
-    level=logging.DEBUG,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-
 
 class Receipts(BaseModel):
     id: str

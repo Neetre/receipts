@@ -5,3 +5,4 @@ data/
 qdrant_storage/
 
 .env
+*.log
