@@ -169,13 +169,15 @@ async def search_similar_receipts(receipt_id: str):
     return {"receipts": receipts}
 
 
-@app.get("/get_receipt/{receipt_id}")
-async def get_receipt(receipt_id: str):
+@app.get("/get_receipt")
+async def get_receipt(id: str = Query(None, description="Receipt ID")):
+    if not id:
+        raise HTTPException(status_code=400, detail="Receipt ID is required")
+        
     receipt = analyze_receipts.qdrant_client.retrieve(
         collection_name="receipts",
-        ids=[receipt_id]
+        ids=[id]
     )
-    # print(receipt[0].payload)
     return {"receipt": receipt[0].payload} if receipt and len(receipt) > 0 else {"error": "Receipt not found"}
 
 
