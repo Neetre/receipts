@@ -1,3 +1,4 @@
+import os
 from typing import Optional, List
 import argparse
 
@@ -7,6 +8,15 @@ from fastapi.staticfiles import StaticFiles
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 import uvicorn
+
+
+if os.path.exists("../log") is False:
+    os.mkdir("../log")
+
+if os.path.exists("../log/receipts.log") is False:
+    with open("../log/receipts.log", "w") as f:
+        f.write("")
+
 
 import logging
 logging.basicConfig(
