@@ -206,7 +206,8 @@ Rules:
             image = Image.open(image_bytes)
         image = self.processor.preprocess_receipt(image)
         text = pytesseract.image_to_string(image, lang="ita")
-        print("TEXT: ", text)
+        with open("../log/receipt_text.txt", "w") as f:
+            f.write(text)
         return text
 
     def scan_receipt(self, file: str):
