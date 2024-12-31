@@ -60,12 +60,12 @@
         <script>
             let currentPage = 0;
             const itemsPerPage = 10;
-            const BASE_URL = 'http://rc.figliolo.it';
+            const BASE_URL = 'http://127.0.0.1:8000';
     
             async function loadReceipts() {
                 try {
                     
-                    const response = await axios.get(`${BASE_URL}/receipts/?offset=${currentPage * itemsPerPage}&limit=${itemsPerPage}`);
+                    const response = await axios.get(`${BASE_URL}/receipts?offset=${currentPage * itemsPerPage}&limit=${itemsPerPage}`);
                     const receiptsGrid = document.getElementById('receiptsGrid');
                     receiptsGrid.innerHTML = '';
     
@@ -122,7 +122,7 @@
                 try {
                     // const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
                     // alert(JSON.stringify(response.data, null, 2));
-                    window.location.href = `receipt_view.html?id=${id}`;
+                    window.location.href = `/receipt?id=${id}`;
                 } catch (error) {
                     console.error('Error viewing receipt:', error);
                 }

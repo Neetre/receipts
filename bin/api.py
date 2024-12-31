@@ -1,14 +1,16 @@
 import os
-from typing import Optional, List
+from typing import Optional, Dict, Any
 import argparse
+from pathlib import Path
+from datetime import date
 
 from fastapi import FastAPI, UploadFile, File, HTTPException, Query, Request
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from starlette.middleware.cors import CORSMiddleware
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from pydantic import BaseModel
 import uvicorn
-
 
 if os.path.exists("../log") is False:
     os.mkdir("../log")
@@ -24,8 +26,15 @@ logging.basicConfig(
     level=logging.DEBUG,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
+logger = logging.getLogger(__name__)
+
+Path("../log").mkdir(exist_ok=True)
+Path("../log/receipts.log").touch(exist_ok=True)
 
 from receipts import AnalyzeReceipts
+
+class Config:
+    MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB
 
 app = FastAPI(
     title="Receipts API",
@@ -34,123 +43,122 @@ app = FastAPI(
     redoc_url='/redoc',
     openapi_url='/openapi.json'
 )
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*']
+    allow_origins=['*'],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 analyze_receipts = AnalyzeReceipts()
 
-
+# Static files and templates setup
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
-@app.get("/")
-def load_template_page():
-    return FileResponse("receipts.html")
+templates = Jinja2Templates(directory="templates")
 
 
 @app.middleware("http")
-async def add_process_time_header(request: Request, call_next):
+async def file_size_middleware(request: Request, call_next):
     if request.method == "POST" and "multipart/form-data" in request.headers.get("content-type", ""):
-        max_file_size = 10 * 1024 * 1024  # 10 MB
         content_length = int(request.headers.get("content-length", 0))
-        if content_length > max_file_size:
+        if content_length > Config.MAX_FILE_SIZE:
             return JSONResponse(
-                status_code=413, 
-                content={"detail": "File too large. Maximum size is 10 MB"}
+                status_code=413,
+                content={"detail": f"File too large. Maximum size is {Config.MAX_FILE_SIZE // (1024 * 1024)} MB"}
             )
-    response = await call_next(request)
-    return response
+    return await call_next(request)
 
 
-@app.get("/receipts/")
+@app.get("/", response_class=HTMLResponse)
+async def load_template_page():
+    try:
+        template_path = Path("templates/receipts.html")
+        if not template_path.exists():
+            raise FileNotFoundError(f"Template not found at {template_path}")
+        return FileResponse(template_path)
+    except Exception as e:
+        logger.error(f"Error loading template: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/receipt", response_class=HTMLResponse)
+async def view_receipt(request: Request, id: str = Query(None, description="Receipt ID")):
+    try:
+        return templates.TemplateResponse(
+            "receipt_view.html", 
+            {"request": request, "id": id}
+        )
+    except Exception as e:
+        logger.error(f"Error loading receipt view: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/receipts")
 async def get_all_receipts(
-    offset: int = 0,
-    limit: int = 10,
-    sort_by: str = "date",
-    sort_order: str = "desc"
-):
-    collection_info = analyze_receipts.qdrant_client.get_collection("receipts")
-    total_points = collection_info.points_count
-    
-    scroll_response = analyze_receipts.qdrant_client.scroll(
-        collection_name="receipts",
-        limit=limit,
-        offset=offset,
-        with_payload=True,
-        with_vectors=False,
-    )
-    
-    receipts = []
-    for point in scroll_response[0]:
-        receipt = point.payload
-        receipt["id"] = point.id
-        receipts.append(receipt)
+    offset: int = Query(0, ge=0),
+    limit: int = Query(10, ge=1, le=100),
+    sort_by: str = Query("date", regex="^(date|merchant|total_amount)$"),
+    sort_order: str = Query("desc", regex="^(asc|desc)$")
+) -> Dict[str, Any]:
+    try:
+        collection_info = analyze_receipts.qdrant_client.get_collection("receipts")
+        scroll_response = analyze_receipts.qdrant_client.scroll(
+            collection_name="receipts",
+            limit=limit,
+            offset=offset,
+            with_payload=True,
+        )
         
-    receipts.sort(
-        key=lambda x: x[sort_by],
-        reverse=(sort_order.lower() == "desc")
-    )
-    
-    return {
-        "total_points": total_points,
-        "receipts": receipts
-    }
+        receipts = [{**point.payload, "id": point.id} for point in scroll_response[0]]
+        receipts.sort(
+            key=lambda x: x[sort_by],
+            reverse=(sort_order.lower() == "desc")
+        )
+        
+        return {
+            "total": collection_info.points_count,
+            "receipts": receipts
+        }
+    except Exception as e:
+        logger.error(f"Error getting receipts: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/upload_receipt/")
-async def upload_receipt(file: UploadFile = File(...)):
+
+@app.post("/upload_receipt")
+async def upload_receipt(file: UploadFile = File(...)) -> Dict[str, str]:
     try:
         contents = await file.read()
         receipt_text = analyze_receipts.extract_text(contents, False)
-        logging.info("Extracted text from receipt")
-        logging.info(receipt_text)
+        logger.info(f"Extracted text from receipt: {receipt_text}")
+
         embedding = analyze_receipts.generate_embedding(receipt_text)
-        logging.info("Generated embedding for receipt")
-
         identified_data = analyze_receipts.identify_data(receipt_text)
-        logging.info("Identified data from receipt")
-        logging.info(identified_data)
         receipt_data = analyze_receipts.text_to_dict(identified_data)
-        logging.info("Converted identified data to dictionary")
-        logging.info(receipt_data)
         
-        analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
-        logging.info("Stored receipt in Qdrant")
-        return {"message": "Receipt processed successfully", "receipt_id": receipt_data.id}
-
+        receipt_id = analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
+        return {"message": "Receipt processed successfully", "receipt_id": receipt_id}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Receipt processing error: {str(e)}")
+        logger.error(f"Error processing receipt: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/search_receipts/{receipt_id}")
+@app.get("/search_receipts")
 async def search_receipts(
-    receipt_id: Optional[str] = None,
-    merchant: Optional[str] = None,
-    date_from: Optional[str] = None,
-    date_to: Optional[str] = None,
-    min_amount: Optional[float] = None,
-    max_amount: Optional[float] = None,
+    query: str = Query(..., min_length=1),
     limit: int = Query(5, ge=1, le=100)
-):
-    query = {}
-
-
-    if receipt_id:
-        query["receipt_id"] = receipt_id
-    if merchant:
-        query["merchant"] = merchant
-    if date_from and date_to:
-        query["date"] = {"$gte": date_from, "$lte": date_to}
-    if min_amount and max_amount:
-        query["total_amount"] = {"$gte": min_amount, "$lte": max_amount}
-
-    search_results = analyze_receipts.qdrant_client.search(
-        collection_name="receipts",
-        query=analyze_receipts.generate_embedding(query),
-        limit=limit
-    )
-
-    return {"search_results": search_results}
+) -> Dict[str, list]:
+    try:
+        embedding = analyze_receipts.generate_embedding(query)
+        search_results = analyze_receipts.qdrant_client.search(
+            collection_name="receipts",
+            query_vector=embedding,
+            limit=limit
+        )
+        return {"results": [{**point.payload, "id": point.id} for point in search_results]}
+    except Exception as e:
+        logger.error(f"Error searching receipts: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/search_similar_receipts/{receipt_id}")
@@ -179,7 +187,6 @@ async def get_receipt(id: str = Query(None, description="Receipt ID")):
         ids=[id]
     )
     return {"receipt": receipt[0].payload} if receipt and len(receipt) > 0 else {"error": "Receipt not found"}
-
 
 @app.get("/save_receipt/{receipt_id}")
 async def save_receipt(
@@ -223,6 +230,7 @@ def parse_args():
         help='Dominio del server'
     )
     parser.add_argument(
+        "-p",
         "--port",
         type=int,
         default=8000,
@@ -238,7 +246,7 @@ def main():
                 port=args.port,
                 ws_max_size=10 * 1024 * 1024,
                 timeout_keep_alive=30,
-                log_level="info")
+                log_level="debug")
 
 
 if __name__ == "__main__":

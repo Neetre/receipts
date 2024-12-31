@@ -18,9 +18,11 @@
             <button onclick="home()">Home</button>
         </div>
         <script>
+            const BASE_URL = 'http://127.0.0.1:8000';
+
             async function viewReceipt(receiptId) {
                 try {
-                    const response = await axios.get(`http://${BASE_URL}/get_receipt/${receiptId}`);
+                    const response = await axios.get(`${BASE_URL}/get_receipt?id=${receiptId}`);
                     console.log('Receipt:', response.data);
                     const receiptDetails = document.getElementById('receiptDetails');
                     const receipt = response.data.receipt;
@@ -64,7 +66,7 @@
                 try {
                     // const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
                     // alert(JSON.stringify(response.data, null, 2));
-                    window.location.href = `receipts.html`;
+                    window.location.href = `/receipts.html`;
                 } catch (error) {
                     console.error('Error going home:', error);
                 }
@@ -72,7 +74,7 @@
 
             async function mod() {
                 try {
-                    window.location.href = `modreceipt.html?id=${receiptId}`;
+                    window.location.href = `/modreceipt.html?id=${receiptId}`;
                 } catch (error) {
                     console.error('Error modifying receipt:', error);
                 }

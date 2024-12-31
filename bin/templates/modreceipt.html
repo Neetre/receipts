@@ -38,6 +38,8 @@
             <button onclick="home()">Home</button>
         </div>
         <script>
+            const BASE_URL = 'http://127.0.0.1:8000';
+
             function addItem(){
                 const items = document.getElementById('items');
                 const item = document.createElement('div');
@@ -92,7 +94,7 @@
                     if (!confirm("Exiting without saving?")) {
                         return;
                     }
-                    window.location.href = `receipts.html`;
+                    window.location.href = `/receipts.html`;
                 } catch (error) {
                     console.error('Error going home:', error);
                 }
@@ -103,7 +105,7 @@
                     if (!confirm("Exiting without saving?")) {
                         return;
                     }
-                    window.location.href = `receipt_view.html?id=${receiptId}`;
+                    window.location.href = `/receipt_view.html?id=${receiptId}`;
                 } catch (error) {
                     console.error('Error viewing receipt:', error);
                 }

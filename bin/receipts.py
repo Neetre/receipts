@@ -11,6 +11,8 @@ from qdrant_client.http import models
 import pytesseract
 from PIL import Image
 import numpy as np
+from functools import wraps
+import time
 
 from transformers import AutoTokenizer, AutoModel
 from groq import Groq
@@ -37,6 +39,25 @@ class Receipts(BaseModel):
 # image_path: Optional[str]
 
 
+def retry_operation(max_attempts=3, base_delay=1):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            attempt = 0
+            while attempt < max_attempts:
+                try:
+                    return func(*args, **kwargs)
+                except Exception as e:
+                    attempt += 1
+                    if attempt == max_attempts:
+                        raise e
+                    delay = base_delay * (2 ** attempt)
+                    time.sleep(delay)
+            return None
+        return wrapper
+    return decorator
+
+
 class ReceiptResponse(BaseModel):
     receipts: List[dict]
     total_count: int
@@ -50,6 +71,7 @@ class AnalyzeReceipts:
         self.client_groq = Groq(api_key=GROQ_API_KEY)
         self.processor = ReceiptProcessor()
         self.init_collection()
+        self.max_attempts = 3
 
     def init_collection(self):
         if self.qdrant_client.collection_exists("receipts"):
@@ -112,7 +134,6 @@ class AnalyzeReceipts:
             if not text.endswith('}'):
                 text = text[:text.rfind('}')+1]
             text_json = json.loads(text)
-            print(text_json)
             logging.info(text_json)
 
             date = self.clean_date(text_json.get("date"))
@@ -206,18 +227,35 @@ Rules:
             image = Image.open(image_bytes)
         image = self.processor.preprocess_receipt(image)
         text = pytesseract.image_to_string(image, lang="ita")
-        with open("../log/receipt_text.txt", "w") as f:
-            f.write(text)
         return text
 
     def scan_receipt(self, file: str):
-        text = self.extract_text(file, True)
-        identified_data = self.identify_data(text)
-        embedding = self.generate_embedding(identified_data)
+        @retry_operation(max_attempts=self.max_attempts)
+        def extract_with_retry(file, flag):
+            return self.extract_text(file, flag)
         
-        receipt_data = self.text_to_dict(identified_data)
+        @retry_operation(max_attempts=self.max_attempts)
+        def identify_with_retry(text):
+            return self.identify_data(text)
+        
+        @retry_operation(max_attempts=self.max_attempts)
+        def embed_with_retry(data):
+            return self.generate_embedding(data)
+        
+        @retry_operation(max_attempts=self.max_attempts)
+        def convert_with_retry(data):
+            return self.text_to_dict(data)
+        
+        @retry_operation(max_attempts=self.max_attempts)
+        def store_with_retry(receipt_data, embedding, identified_data):
+            return self.store_receipt(receipt_data, embedding, identified_data)
+
+        text = extract_with_retry(file, True)
+        identified_data = identify_with_retry(text)
+        embedding = embed_with_retry(identified_data)
+        receipt_data = convert_with_retry(identified_data)
         print("ID: ", receipt_data.id)
-        self.store_receipt(receipt_data, embedding, identified_data)
+        store_with_retry(receipt_data, embedding, identified_data)
 
 
 def get_files(path):
