@@ -18,7 +18,7 @@
             <button onclick="home()">Home</button>
         </div>
         <script>
-            const BASE_URL = 'http://127.0.0.1:8000';
+            const BASE_URL = window.location.origin;
 
             async function viewReceipt(receiptId) {
                 try {
@@ -66,7 +66,7 @@
                 try {
                     // const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
                     // alert(JSON.stringify(response.data, null, 2));
-                    window.location.href = `/receipts.html`;
+                    window.location.href = `/`;
                 } catch (error) {
                     console.error('Error going home:', error);
                 }

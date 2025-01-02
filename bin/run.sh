@@ -40,4 +40,4 @@ echo "Installing Python dependencies..."
 pip install -r ../requirements.txt
 
 echo "Running the main application..."
-python3 ./api.py --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000

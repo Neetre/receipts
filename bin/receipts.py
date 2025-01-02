@@ -102,7 +102,7 @@ class AnalyzeReceipts:
         return self.generate_with_groq(prompt)
     
     def generate_embedding(self, text: str) -> list:
-        inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True)
+        inputs = self.tokenizer(text=text, return_tensors="pt", padding=True, truncation=True)
         with torch.no_grad():
             outputs = self.model(**inputs)
         embeddings = outputs.last_hidden_state.mean(dim=1)

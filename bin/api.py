@@ -161,11 +161,23 @@ async def search_receipts(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.get("/search_similar_receipts/{receipt_id}")
-async def search_similar_receipts(receipt_id: str):
+@app.get("/searchPage", response_class=HTMLResponse)
+async def view_receipt(request: Request, id: str = Query(None, description="Receipt ID")):
+    try:
+        return templates.TemplateResponse(
+            "searchPage.html", 
+            {"request": request, "id": id}
+        )
+    except Exception as e:
+        logger.error(f"Error loading receipt view: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/search_similar_receipts")
+async def search_similar_receipts(id: str = Query(None, description="Receipt ID")):
     search_results = analyze_receipts.qdrant_client.search(
         collection_name="receipts",
-        query_vector=analyze_receipts.generate_embedding(receipt_id),
+        query_vector=analyze_receipts.generate_embedding(id),
         limit=5
     )
     receipts = []

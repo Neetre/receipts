@@ -29,6 +29,6 @@ pip install -r ..\requirements.txt
 
 REM Run the Flask application
 echo Running the main application...
-python api.py --host 0.0.0.0 --port 8000
+uvicorn api:app --reload --host 0.0.0.0 --port 8000
 
 pause

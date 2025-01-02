@@ -102,6 +102,19 @@ Modify them if needed.
 
 Open your browser and go to `http://localhost:8000`. You will see the web application.
 
+To run the app, you can also run the "run" scripts:
+
+```bash
+cd bin
+
+# Linux/macOS
+./run.sh
+
+# Windows
+./run.bat
+```
+
+
 ### Modify the scanned receipt
 
 Comming soon... :thumbsup:
