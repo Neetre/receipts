@@ -6,3 +6,11 @@ qdrant_storage/
 
 .env
 *.log
+*.db
+
+# html pages
+login.html
+register.html
+
+# py
+data_manager.py

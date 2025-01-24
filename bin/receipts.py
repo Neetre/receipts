@@ -17,6 +17,7 @@ import time
 from transformers import AutoTokenizer, AutoModel
 from groq import Groq
 import torch
+import google.generativeai as genai
 
 from processing import ReceiptProcessor
 
@@ -28,6 +29,8 @@ ic.enable()
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+genai.configure(api_key=GOOGLE_API_KEY)
 
 class Receipts(BaseModel):
     id: str
@@ -62,6 +65,8 @@ class ReceiptResponse(BaseModel):
     receipts: List[dict]
     total_count: int
 
+model_gemini = genai.GenerativeModel(model_name="gemini-1.5-flash")
+prompt = "Extract the text from the receipt."
 
 class AnalyzeReceipts:
     def __init__(self):
@@ -207,6 +212,7 @@ Rules:
                 )
             ]
         )
+        return receipt_data.id
     
     def update_receipt(self, receipt_id: str, receipt_data: dict):
         self.qdrant_client.update(
@@ -256,6 +262,15 @@ Rules:
         receipt_data = convert_with_retry(identified_data)
         print("ID: ", receipt_data.id)
         store_with_retry(receipt_data, embedding, identified_data)
+    
+    @staticmethod
+    def analyze_with_gemini(image: Image) -> str:
+        try:
+            response = model_gemini.generate_content([image, prompt])
+            return str(response.text)
+        except Exception as e:
+            print(f"Error analyzing image: {e}")
+            return None
 
 
 def get_files(path):

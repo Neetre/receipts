@@ -25,25 +25,6 @@
                 <input type="text" id="search" name="search" placeholder="Search by receipt ID">
                 <button onclick="searchReceipt()">Search</button>
                 <div id="results"></div>
-
-                <!--
-                <form id="searchForm">
-                    <label for="receipt_id">Receipt ID:</label>
-                    <input type="text" id="receipt_id" name="receipt_id"><br><br>
-                    <label for="merchant">Merchant:</label>
-                    <input type="text" id="merchant" name="merchant"><br><br>
-                    <label for="date_from">Date From:</label>
-                    <input type="date" id="date_from" name="date_from"><br><br>
-                    <label for="date_to">Date To:</label>
-                    <input type="date" id="date_to" name="date_to"><br><br>
-                    <label for="min_amount">Min Amount</label>
-                    <input type="number" id="min_amount" name="min_amount"><br><br>
-                    <label for="max_amount">Max Amount:</label>
-                    <input type="number" id="max_amount" name="max_amount"><br><br>
-                    <button type="submit">Search</button>
-                </form>
-                <div id="results"></div>
-            -->
             </div>
             <br><br>
 
@@ -121,8 +102,6 @@
     
             async function viewReceipt(id) {
                 try {
-                    // const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
-                    // alert(JSON.stringify(response.data, null, 2));
                     window.location.href = `/receipt?id=${id}`;
                 } catch (error) {
                     console.error('Error viewing receipt:', error);

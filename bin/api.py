@@ -124,17 +124,26 @@ async def get_all_receipts(
         logger.error(f"Error getting receipts: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+from PIL import Image
 
 @app.post("/upload_receipt")
 async def upload_receipt(file: UploadFile = File(...)) -> Dict[str, str]:
     try:
         contents = await file.read()
-        receipt_text = analyze_receipts.extract_text(contents, False)
+        file_path = Path("../data/input") / file.filename
+        Path("../data/input").mkdir(exist_ok=True)
+        with open(file_path, "wb") as f:
+            f.write(contents)
+
+        image = Image.open(file_path)
+        receipt_text = analyze_receipts.analyze_with_gemini(image)
+        # receipt_text = analyze_receipts.extract_text(contents, False)
         logger.info(f"Extracted text from receipt: {receipt_text}")
 
         embedding = analyze_receipts.generate_embedding(receipt_text)
         identified_data = analyze_receipts.identify_data(receipt_text)
         receipt_data = analyze_receipts.text_to_dict(identified_data)
+        print("ID: ", receipt_data.id)
         
         receipt_id = analyze_receipts.store_receipt(receipt_data, embedding, receipt_text)
         return {"message": "Receipt processed successfully", "receipt_id": receipt_id}
