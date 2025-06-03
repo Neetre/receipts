@@ -3,64 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results - Receipts</title>
+    <title>Search Results - Receipt Manager</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/auth.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Search Results</h1>
-    </header>
-
-    <main>
-        <section class="search-results">
-            <div class="receipts-grid" id="results">
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Search Results</h1>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <div id="searchQuery" style="color: #666; font-style: italic;"></div>
+                <button onclick="home()" class="secondary">🏠 Home</button>
             </div>
-        </section>
-    </main>
-    <button onclick="home()">Home</button>
+        </div>
+
+        <div class="search-section">
+            <h3>🎯 Search for similar receipts</h3>
+            <div class="search-controls">
+                <input type="text" id="newSearch" placeholder="Enter new search term...">
+                <button onclick="performNewSearch()">Search</button>
+            </div>
+        </div>
+
+        <main>
+            <section class="search-results">
+                <div id="resultsHeader" style="margin-bottom: 20px; display: none;">
+                    <h3>📄 Found Receipts</h3>
+                    <p id="resultsCount" style="color: #666;"></p>
+                </div>
+                <div class="receipts-grid" id="results">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <div>⏳ Searching receipts...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
     <script>
         const BASE_URL = window.location.origin;
-        const searchParams = new URLSearchParams(window.location.search);
-        const query = searchParams.get('id');
+        let currentQuery = '';
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', async function() {
+            if (!(await AuthManager.checkAuthAndRedirect())) {
+                return;
+            }
+            
+            const searchParams = new URLSearchParams(window.location.search);
+            currentQuery = searchParams.get('id') || '';
+            
+            if (currentQuery) {
+                document.getElementById('searchQuery').textContent = `Searching for: "${currentQuery}"`;
+                document.getElementById('newSearch').value = currentQuery;
+                await loadSimilarReceipts();
+            } else {
+                showError('No search query provided');
+            }
+        });
 
         async function loadSimilarReceipts() {
             try {
-                const response = await fetch(`${BASE_URL}/search_similar_receipts?id=${encodeURIComponent(query)}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
-                const receipts = Array.isArray(data) ? data : data.receipts || [];
+                showLoadingState();
+                
+                const response = await axios.get(`${BASE_URL}/search_similar_receipts?id=${encodeURIComponent(currentQuery)}`);
+                const receipts = Array.isArray(response.data) ? response.data : response.data.receipts || [];
                 
                 const resultsContainer = document.getElementById('results');
+                const resultsHeader = document.getElementById('resultsHeader');
+                const resultsCount = document.getElementById('resultsCount');
+                
                 resultsContainer.innerHTML = '';
+                resultsHeader.style.display = 'block';
 
                 if (receipts.length === 0) {
-                    resultsContainer.innerHTML = '<p>No matching receipts found.</p>';
+                    resultsCount.textContent = 'No matching receipts found';
+                    resultsContainer.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <div style="font-size: 48px; margin-bottom: 20px;">🔍</div>
+                            <h3>No matching receipts found</h3>
+                            <p style="color: #666; margin-bottom: 20px;">Try searching with different keywords or check your spelling.</p>
+                            <button onclick="home()" class="secondary">← Back to Home</button>
+                        </div>
+                    `;
                     return;
                 }
 
+                resultsCount.textContent = `Found ${receipts.length} matching receipt${receipts.length !== 1 ? 's' : ''}`;
+
                 receipts.forEach(receipt => {
-                    console.log(receipt);
                     const receiptElement = document.createElement('div');
                     receiptElement.className = 'receipt-card';
                     receiptElement.innerHTML = `
-                        <h3>${receipt.merchant}</h3>
-                        <p>Date: ${receipt.date}</p>
-                        <p>Total: $${receipt.total_amount}</p>
+                        <h3>🏪 ${receipt.merchant || 'Unknown Merchant'}</h3>
+                        <p><strong>📅 Date:</strong> ${new Date(receipt.date).toLocaleDateString()}</p>
+                        <p class="amount"><strong>💰 Total:</strong> €${(receipt.total_amount || 0).toFixed(2)}</p>
+                        <p><strong>🆔 Receipt ID:</strong> ${receipt.id}</p>
+                        ${receipt.items && receipt.items.length > 0 ? 
+                            `<p><strong>🛒 Items:</strong> ${receipt.items.length} item${receipt.items.length !== 1 ? 's' : ''}</p>` : 
+                            ''
+                        }
                         <button onclick="viewReceipt('${receipt.id}')">View Details</button>
                     `;
                     resultsContainer.appendChild(receiptElement);
                 });
+
             } catch (error) {
                 console.error('Error loading receipts:', error);
-                document.getElementById('results').innerHTML = 
-                    '<p class="error">Failed to load receipts. Please try again.</p>';
+                showError('Failed to load search results. Please try again.');
             }
         }
 
+        function showLoadingState() {
+            const resultsContainer = document.getElementById('results');
+            resultsContainer.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <div>⏳ Searching receipts...</div>
+                </div>
+            `;
+        }
+
+        function showError(message) {
+            const resultsContainer = document.getElementById('results');
+            const resultsHeader = document.getElementById('resultsHeader');
+            
+            resultsHeader.style.display = 'none';
+            resultsContainer.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <div style="color: #dc3545; font-size: 48px; margin-bottom: 20px;">⚠️</div>
+                    <h3 style="color: #dc3545;">Error</h3>
+                    <p style="color: #666; margin-bottom: 20px;">${message}</p>
+                    <button onclick="home()" class="secondary">← Go Back Home</button>
+                </div>
+            `;
+        }
+
         async function viewReceipt(id) {
-            window.location.href = `/receipt?id=${id}`;
+            try {
+                window.location.href = `/receipt?id=${id}`;
+            } catch (error) {
+                console.error('Error viewing receipt:', error);
+            }
         }
 
         async function home() {
@@ -71,10 +155,30 @@
             }
         }
 
-        window.addEventListener('load', loadSimilarReceipts);
-    </script>
+        async function performNewSearch() {
+            const newSearchValue = document.getElementById('newSearch').value.trim();
+            if (!newSearchValue) {
+                alert('Please enter a search term');
+                return;
+            }
+            
+            try {
+                window.location.href = `/searchPage?id=${encodeURIComponent(newSearchValue)}`;
+            } catch (error) {
+                console.error('Error performing new search:', error);
+            }
+        }
+
+        // Add keyboard support for new search
+        document.getElementById('newSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performNewSearch();
+            }
+        });    </script>
+
     <footer>
-        <p>&copy; 2024 Receipt Manager</p>
+        <p>Receipt Manager</p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
     </footer>
 </body>
 </html>

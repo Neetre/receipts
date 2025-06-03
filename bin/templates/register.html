@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Receipt Manager</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <meta name="description" content="Register for Receipt Manager">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/auth.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <h1>📝 Create Account</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Join Receipt Manager and organize your receipts</p>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="username">👤 Username</label>
+                <input type="text" id="username" name="username" required placeholder="Choose a username" minlength="3">
+            </div>
+            <div class="form-group">
+                <label for="email">📧 Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email address">
+            </div>
+            <div class="form-group">
+                <label for="password">🔒 Password</label>
+                <input type="password" id="password" name="password" required placeholder="Create a password" minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">🔒 Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+            </div>
+            <button type="submit" id="registerBtn" style="width: 100%;">
+                <span id="registerText">Create Account</span>
+                <span id="registerSpinner" style="display: none;">⏳ Creating account...</span>
+            </button>
+        </form>
+        
+        <div class="auth-links">
+            <p>Already have an account? <a href="/login-page">Sign in here</a></p>
+        </div>
+        
+        <div id="registerMessage"></div>
+    </div>
+
+    <script>
+        const BASE_URL = window.location.origin;
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            if (AuthManager.isAuthenticated()) {
+                AuthManager.redirectToHome();
+                return;
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await register();
+        });
+
+        // Real-time password confirmation validation
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword && password !== confirmPassword) {
+                this.style.borderColor = '#dc3545';
+                showMessage('Passwords do not match', 'error');
+            } else {
+                this.style.borderColor = '#e1e5e9';
+                clearMessage();
+            }
+        });
+
+        async function register() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Validation
+            if (!username || !email || !password || !confirmPassword) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (username.length < 3) {
+                showMessage('Username must be at least 3 characters long', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('Password must be at least 6 characters long', 'error');
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                showMessage('Passwords do not match', 'error');
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showMessage('Please enter a valid email address', 'error');
+                return;
+            }
+
+            const registerBtn = document.getElementById('registerBtn');
+            const registerText = document.getElementById('registerText');
+            const registerSpinner = document.getElementById('registerSpinner');
+            
+            registerBtn.disabled = true;
+            registerText.style.display = 'none';
+            registerSpinner.style.display = 'inline';
+
+            try {
+                const response = await axios.post(`${BASE_URL}/register`, {
+                    username: username,
+                    email: email,
+                    password: password
+                });
+
+                // Store authentication data
+                AuthManager.setToken(response.data.access_token);
+                AuthManager.setUserData({
+                    user_id: response.data.user_id,
+                    username: response.data.username
+                });
+
+                showMessage('✅ Registration successful! Redirecting to your dashboard...', 'success');
+                
+                setTimeout(() => {
+                    AuthManager.redirectToHome();
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error during registration:', error);
+                let errorMessage = 'An error occurred during registration.';
+                
+                if (error.response) {
+                    if (error.response.status === 400) {
+                        errorMessage = '❌ Username already exists or invalid data provided.';
+                    } else if (error.response.data && error.response.data.detail) {
+                        errorMessage = `❌ ${error.response.data.detail}`;
+                    }
+                }
+                
+                showMessage(errorMessage, 'error');
+            } finally {
+                registerBtn.disabled = false;
+                registerText.style.display = 'inline';
+                registerSpinner.style.display = 'none';
+            }
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('registerMessage');
+            messageDiv.textContent = message;
+            messageDiv.className = `message ${type}`;
+        }
+
+        function clearMessage() {
+            const messageDiv = document.getElementById('registerMessage');
+            if (messageDiv.classList.contains('error')) {
+                messageDiv.textContent = '';
+                messageDiv.className = '';
+            }
+        }    </script>
+
+    <footer>
+        <p>Receipt Manager</p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
+    </footer>
+</body>
+</html>

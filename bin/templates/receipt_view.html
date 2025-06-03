@@ -2,88 +2,168 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>Receipt Viewer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Receipt Details - Receipt Manager</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-        <meta name="description" content="Receipt Viewer">
+        <meta name="description" content="View Receipt Details">
         <link rel="stylesheet" href="/static/styles.css">
+        <script src="/static/auth.js"></script>
     </head>
     <body>
         <div class="container">
-            <div class="receipt-section">
-                <h2>Receipt Details</h2>
-                <div class="receipt-details" id="receiptDetails"></div>
+            <div class="header">
+                <h1>📄 Receipt Details</h1>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="home()" class="secondary">🏠 Home</button>
+                    <button onclick="editReceipt()" id="editBtn" style="display: none;">✏️ Edit</button>
+                </div>
             </div>
-            <!--<button onclick="mod()">Modify</button> -->
-            <button onclick="home()">Home</button>
+
+            <div class="receipt-section">
+                <div id="receiptDetails">
+                    <div style="text-align: center; padding: 40px;">
+                        <div>⏳ Loading receipt details...</div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <script>
             const BASE_URL = window.location.origin;
+            let currentReceiptId = null;
+
+            // Initialize the page
+            document.addEventListener('DOMContentLoaded', async function() {
+                if (!(await AuthManager.checkAuthAndRedirect())) {
+                    return;
+                }
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                currentReceiptId = urlParams.get('id');
+
+                if (currentReceiptId) {
+                    await viewReceipt(currentReceiptId);
+                } else {
+                    showError('No receipt ID found in URL');
+                }
+            });
 
             async function viewReceipt(receiptId) {
                 try {
                     const response = await axios.get(`${BASE_URL}/get_receipt?id=${receiptId}`);
-                    console.log('Receipt:', response.data);
                     const receiptDetails = document.getElementById('receiptDetails');
+                    
+                    if (response.data.error) {
+                        showError(response.data.error);
+                        return;
+                    }
+
                     const receipt = response.data.receipt;
-                    console.log(receipt)
+                    
+                    if (!receipt) {
+                        showError('Receipt not found');
+                        return;
+                    }
+
                     if (receipt.merchant && receipt.date && receipt.total_amount && receipt.items) {
-                        receiptDetails.innerHTML = `
-                        <h3>Merchant: ${receipt.merchant}</h3>
-                        <p>Date: ${new Date(receipt.date).toLocaleDateString()}</p>
-                        <p>Amount: €${receipt.total_amount}</p>
-                        <p>Items:</p>
-                        <ul>${receipt.items.map(item => `
-                            <li>
-                                ${item.name} 
-                                ${item.number ? `(Qty: ${item.number})` : ''} 
-                                - €${item.price}
+                        const itemsHtml = receipt.items.map(item => `
+                            <li style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+                                <div>
+                                    <strong>${item.name || 'Unknown Item'}</strong>
+                                    ${item.quantity || item.number ? `<span style="color: #666;"> (Qty: ${item.quantity || item.number})</span>` : ''}
+                                </div>
+                                <div style="font-weight: bold; color: #28a745;">€${(item.price || 0).toFixed(2)}</div>
                             </li>
-                            `).join('')}
-                        </ul>
+                        `).join('');
+
+                        receiptDetails.innerHTML = `
+                            <div style="background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%); padding: 30px; border-radius: 12px; border-left: 5px solid #667eea;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                                    <div>
+                                        <h3 style="color: #667eea; margin-bottom: 15px; font-size: 24px;">🏪 ${receipt.merchant}</h3>
+                                        <p style="color: #666; margin: 8px 0;"><strong>📅 Date:</strong> ${new Date(receipt.date).toLocaleDateString('en-US', { 
+                                            year: 'numeric', 
+                                            month: 'long', 
+                                            day: 'numeric' 
+                                        })}</p>
+                                        <p style="color: #666; margin: 8px 0;"><strong>🆔 Receipt ID:</strong> ${receiptId}</p>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                            <p style="color: #666; margin: 0; font-size: 14px;">Total Amount</p>
+                                            <p style="color: #28a745; margin: 5px 0 0 0; font-size: 28px; font-weight: bold;">€${(receipt.total_amount || 0).toFixed(2)}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <h4 style="color: #333; margin-bottom: 15px; font-size: 18px;">🛒 Items Purchased</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        ${itemsHtml}
+                                    </ul>
+                                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #667eea; text-align: right;">
+                                        <strong style="font-size: 18px;">Total: €${(receipt.total_amount || 0).toFixed(2)}</strong>
+                                    </div>
+                                </div>
+                            </div>
                         `;
+                        
+                        // Show edit button if receipt loaded successfully
+                        document.getElementById('editBtn').style.display = 'inline-block';
+                        
                     } else {
-                        receiptDetails.innerHTML = '<p>Receipt data is incomplete or missing.<p>'
+                        showError('Receipt data is incomplete or corrupted');
                     }
                     
                 } catch (error) {
                     console.error('Error loading receipt:', error);
-                    document.getElementById('receiptDetails').innerHTML = '<p>Error loading receipt data.</p>';
+                    let errorMessage = 'Failed to load receipt data';
+                    
+                    if (error.response) {
+                        if (error.response.status === 403) {
+                            errorMessage = 'Access denied - you can only view your own receipts';
+                        } else if (error.response.status === 404) {
+                            errorMessage = 'Receipt not found';
+                        } else if (error.response.data && error.response.data.detail) {
+                            errorMessage = error.response.data.detail;
+                        }
+                    }
+                    
+                    showError(errorMessage);
                 }
             }
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const receiptId = urlParams.get('id');
-
-            // Call viewReceipt with the extracted receiptId
-            if (receiptId) {
-                viewReceipt(receiptId);
-            } else {
-                console.error('No receipt Id found in URL');
+            function showError(message) {
+                document.getElementById('receiptDetails').innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div style="color: #dc3545; font-size: 48px; margin-bottom: 20px;">⚠️</div>
+                        <h3 style="color: #dc3545; margin-bottom: 15px;">Error</h3>
+                        <p style="color: #666; margin-bottom: 20px;">${message}</p>
+                        <button onclick="home()" class="secondary">← Go Back Home</button>
+                    </div>
+                `;
             }
 
             async function home() {
                 try {
-                    // const response = await axios.get(`http://localhost:8000/get_receipt/${id}`);
-                    // alert(JSON.stringify(response.data, null, 2));
                     window.location.href = `/`;
                 } catch (error) {
                     console.error('Error going home:', error);
                 }
             }
 
-            async function mod() {
-                try {
-                    window.location.href = `/modreceipt.html?id=${receiptId}`;
-                } catch (error) {
-                    console.error('Error modifying receipt:', error);
+            async function editReceipt() {
+                if (currentReceiptId) {
+                    try {
+                        window.location.href = `/modreceipt.html?id=${currentReceiptId}`;
+                    } catch (error) {
+                        console.error('Error navigating to edit page:', error);
+                    }
                 }
-            }
-            
-        </script>
+            }        </script>
     </body>
     <footer>
         <p>Receipt Manager</p>
-        <p>Made by <a href="https://github.com/Neetre">Neetre</a>  &copy; <script>document.write(new Date().getFullYear());</script></p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
     </footer>
 </html>

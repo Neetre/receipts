@@ -1,100 +1,257 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>Receipt Editor</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Receipt - Receipt Manager</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-        <meta name="description" content="Receipt Editor">
+        <meta name="description" content="Edit Receipt Details">
         <link rel="stylesheet" href="/static/styles.css">
+        <script src="/static/auth.js"></script>
     </head>
     <body>
         <div class="container">
-            <div class="recdipt-edit-section">
-                <h2>Edit Receipt</h2>
+            <div class="header">
+                <h1>✏️ Edit Receipt</h1>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="view()" class="secondary">👁️ View</button>
+                    <button onclick="home()" class="secondary">🏠 Home</button>
+                </div>
+            </div>
+
+            <div class="receipt-edit-section">
                 <form id="receiptForm">
-                    <label for="merchant">Merchant:</label>
-                    <input type="text" id="merchant" name="merchant" required>
-                    <label for="date_from">Date:</label>
-                    <input type="date" id="date" name="date" required>
-                    <label for="totalAmount">Total Amount</label>
-                    <input type="number" id="totalAmount" name="totalAmount" required><br><br>
-                    <label for="items">Items:</label>
-                    <div id="items">
-                        <div class="item">
-                            <label for ="itemName">Name:</label>
-                            <input type="text" name="itemName" required>
-                            <label for ="itemPrice">Price:</label>
-                            <input type="text" name="itemPrice" required>
-                            <label for ="itemNumber">Number:</label>
-                            <input type="text" name="itemNumber" required>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                        <div class="form-group">
+                            <label for="merchant">🏪 Merchant</label>
+                            <input type="text" id="merchant" name="merchant" required placeholder="Enter merchant name">
+                        </div>
+                        <div class="form-group">
+                            <label for="date">📅 Date</label>
+                            <input type="date" id="date" name="date" required>
                         </div>
                     </div>
-                    <button type="button" onclick="addItem()">Add Item</button>
-                    <button type="submit">Save</button>
+                    
+                    <div class="form-group">
+                        <label for="totalAmount">💰 Total Amount (€)</label>
+                        <input type="number" id="totalAmount" name="totalAmount" step="0.01" min="0" required placeholder="0.00">
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                            <label>🛒 Items</label>
+                            <button type="button" onclick="addItem()" class="secondary">➕ Add Item</button>
+                        </div>
+                        <div id="items">
+                            <!-- Items will be added here -->
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; justify-content: center; margin-top: 30px;">
+                        <button type="submit" id="saveBtn">
+                            <span id="saveText">💾 Save Changes</span>
+                            <span id="saveSpinner" style="display: none;">⏳ Saving...</span>
+                        </button>
+                        <button type="button" onclick="resetForm()" class="secondary">🔄 Reset</button>
+                    </div>
                 </form>
             </div>
-            <button onclick="view()">View</button>
-            <button onclick="home()">Home</button>
         </div>
+
         <script>
             const BASE_URL = window.location.origin;
+            let receiptId = null;
+            let originalReceiptData = null;
 
-            function addItem(){
-                const items = document.getElementById('items');
-                const item = document.createElement('div');
-                item.classList.add('item');
-                item.innerHTML = `
-                <label for ="itemName">Name:</label>
-                <input type="text" name="itemName" required>
-                <label for ="itemPrice">Price:</label>
-                <input type="text" name="itemPrice" required>
-                <label for ="itemNumber">Number:</label>
-                <input type="text" name="itemNumber">
-                `;
-                items.appendChild(item);
-            }
+            // Initialize the page
+            document.addEventListener('DOMContentLoaded', async function() {
+                if (!(await AuthManager.checkAuthAndRedirect())) {
+                    return;
+                }
+                
+                const urlParams = new URLSearchParams(window.location.search);
+                receiptId = urlParams.get('id');
 
-            async function saveReceipt(event){
-                event.preventDefault();
-                const receiptForm = document.getElementById('receiptForm')
-                const formData = new FormData(receiptForm);
-                const receiptData = {
-                    merchant: formData.get('merchant'),
-                    date: formData.get('date'),
-                    total_amount: formData.get('totalAmount'),
-                    items: []
-                };
-                const itemInputs = receiptForm.querySelectorAll('.item');
-                itemInputs.forEach(itemInput => {
-                    const itemName = itemInput.querySelector('[name="itemName"]').value;
-                    const itemPrice = itemInput.querySelector('[name="itemPrice"]').value;
-                    const itemNumber = itemInput.querySelector('[name="itemNumber"]').value;
-                    receiptData.items.push({
-                        name: itemName,
-                        price: itemPrice,
-                        number: itemNumber
-                    });
-                });
-                console.log("Receipt Data", receiptData);
+                if (receiptId) {
+                    await loadReceiptData();
+                } else {
+                    alert('❌ No receipt ID found in URL');
+                    home();
+                }
+            });
+
+            async function loadReceiptData() {
                 try {
-                    const response = await axios.post(`http://${BASE_URL}/save_receipt/`, { receiptId: receiptId, receipt: receiptData });
-                    console.log('Receipt saved:', response.data);
-                    window.location.href = `receipt_view.html?id=${response.data.receiptId}`;
+                    const response = await axios.get(`${BASE_URL}/get_receipt?id=${receiptId}`);
+                    
+                    if (response.data.error) {
+                        alert(`❌ Error: ${response.data.error}`);
+                        home();
+                        return;
+                    }
+
+                    const receipt = response.data.receipt;
+                    originalReceiptData = receipt;
+                    
+                    // Populate form fields
+                    document.getElementById('merchant').value = receipt.merchant || '';
+                    document.getElementById('date').value = receipt.date || '';
+                    document.getElementById('totalAmount').value = receipt.total_amount || '';
+
+                    // Clear existing items and add loaded items
+                    const itemsContainer = document.getElementById('items');
+                    itemsContainer.innerHTML = '';
+                    
+                    if (receipt.items && receipt.items.length > 0) {
+                        receipt.items.forEach(item => {
+                            addItem(item);
+                        });
+                    } else {
+                        addItem(); // Add one empty item
+                    }
+
                 } catch (error) {
-                    console.error("Error saving receipt", error);
-                    alert("Error saving receipt. Please try again.");
+                    console.error('Error loading receipt:', error);
+                    alert('❌ Failed to load receipt data');
+                    home();
                 }
             }
-            const urlParams = new URLSearchParams(window.location.search);
-            const receiptId = urlParams.get('id');
+
+            function addItem(itemData = null) {
+                const items = document.getElementById('items');
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'item';
+                itemDiv.innerHTML = `
+                    <div class="item-row">
+                        <div style="flex: 2;">
+                            <label>📦 Item Name</label>
+                            <input type="text" name="itemName" required placeholder="Enter item name" value="${itemData ? itemData.name || '' : ''}">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>💶 Price (€)</label>
+                            <input type="number" name="itemPrice" step="0.01" min="0" required placeholder="0.00" value="${itemData ? itemData.price || '' : ''}">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>🔢 Quantity</label>
+                            <input type="number" name="itemNumber" min="1" placeholder="1" value="${itemData ? itemData.quantity || itemData.number || 1 : 1}">
+                        </div>
+                        <div style="flex: 0;">
+                            <label style="opacity: 0;">Remove</label>
+                            <button type="button" onclick="removeItem(this)" class="danger" style="width: 40px; padding: 12px 8px;">🗑️</button>
+                        </div>
+                    </div>
+                `;
+                items.appendChild(itemDiv);
+            }
+
+            function removeItem(button) {
+                const itemsContainer = document.getElementById('items');
+                const items = itemsContainer.querySelectorAll('.item');
+                
+                if (items.length <= 1) {
+                    alert('⚠️ You must have at least one item');
+                    return;
+                }
+                
+                if (confirm('🗑️ Are you sure you want to remove this item?')) {
+                    button.closest('.item').remove();
+                    updateTotalFromItems();
+                }
+            }
+
+            function updateTotalFromItems() {
+                const itemInputs = document.querySelectorAll('.item');
+                let total = 0;
+                
+                itemInputs.forEach(itemInput => {
+                    const price = parseFloat(itemInput.querySelector('[name="itemPrice"]').value) || 0;
+                    const quantity = parseInt(itemInput.querySelector('[name="itemNumber"]').value) || 1;
+                    total += price * quantity;
+                });
+                
+                document.getElementById('totalAmount').value = total.toFixed(2);
+            }
+
+            // Auto-calculate total when item prices or quantities change
+            document.addEventListener('input', function(e) {
+                if (e.target.name === 'itemPrice' || e.target.name === 'itemNumber') {
+                    updateTotalFromItems();
+                }
+            });
+
+            async function saveReceipt(event) {
+                event.preventDefault();
+                
+                const receiptForm = document.getElementById('receiptForm');
+                const formData = new FormData(receiptForm);
+                
+                const receiptData = {
+                    date: formData.get('date'),
+                    totalAmount: parseFloat(formData.get('totalAmount')),
+                    merchant: formData.get('merchant'),
+                    items: []
+                };
+
+                const itemInputs = receiptForm.querySelectorAll('.item');
+                itemInputs.forEach(itemInput => {
+                    const itemName = itemInput.querySelector('[name="itemName"]').value.trim();
+                    const itemPrice = parseFloat(itemInput.querySelector('[name="itemPrice"]').value) || 0;
+                    const itemNumber = parseInt(itemInput.querySelector('[name="itemNumber"]').value) || 1;
+                    
+                    if (itemName) { // Only add items with names
+                        receiptData.items.push({
+                            name: itemName,
+                            price: itemPrice,
+                            quantity: itemNumber
+                        });
+                    }
+                });
+
+                if (receiptData.items.length === 0) {
+                    alert('⚠️ Please add at least one item with a name');
+                    return;
+                }
+
+                const saveBtn = document.getElementById('saveBtn');
+                const saveText = document.getElementById('saveText');
+                const saveSpinner = document.getElementById('saveSpinner');
+                
+                saveBtn.disabled = true;
+                saveText.style.display = 'none';
+                saveSpinner.style.display = 'inline';
+
+                try {
+                    const response = await axios.post(`${BASE_URL}/save_receipt/${receiptId}`, receiptData);
+                    alert('✅ Receipt saved successfully!');
+                    window.location.href = `/receipt?id=${receiptId}`;
+                } catch (error) {
+                    console.error("Error saving receipt", error);
+                    
+                    let errorMessage = 'Failed to save receipt. Please try again.';
+                    if (error.response && error.response.data && error.response.data.detail) {
+                        errorMessage = error.response.data.detail;
+                    }
+                    
+                    alert(`❌ ${errorMessage}`);
+                } finally {
+                    saveBtn.disabled = false;
+                    saveText.style.display = 'inline';
+                    saveSpinner.style.display = 'none';
+                }
+            }
+
+            function resetForm() {
+                if (confirm('🔄 Are you sure you want to reset all changes? This will restore the original receipt data.')) {
+                    loadReceiptData();
+                }
+            }
 
             async function home() {
                 try {
-                    if (!confirm("Exiting without saving?")) {
+                    if (hasUnsavedChanges() && !confirm("🚪 You have unsaved changes. Are you sure you want to leave?")) {
                         return;
                     }
-                    window.location.href = `/receipts.html`;
+                    window.location.href = `/`;
                 } catch (error) {
                     console.error('Error going home:', error);
                 }
@@ -102,16 +259,43 @@
 
             async function view() {
                 try {
-                    if (!confirm("Exiting without saving?")) {
+                    if (hasUnsavedChanges() && !confirm("👁️ You have unsaved changes. Are you sure you want to view without saving?")) {
                         return;
                     }
-                    window.location.href = `/receipt_view.html?id=${receiptId}`;
+                    window.location.href = `/receipt?id=${receiptId}`;
                 } catch (error) {
                     console.error('Error viewing receipt:', error);
                 }
             }
 
-            document.getElementById('receiptForm').addEventListener('submit', saveReceipt);
-        </script>
+            function hasUnsavedChanges() {
+                if (!originalReceiptData) return false;
+                
+                const currentData = {
+                    merchant: document.getElementById('merchant').value,
+                    date: document.getElementById('date').value,
+                    total_amount: parseFloat(document.getElementById('totalAmount').value)
+                };
+                
+                return (
+                    currentData.merchant !== originalReceiptData.merchant ||
+                    currentData.date !== originalReceiptData.date ||
+                    currentData.total_amount !== originalReceiptData.total_amount
+                );
+            }
+
+            // Warn before page unload if there are unsaved changes
+            window.addEventListener('beforeunload', function(e) {
+                if (hasUnsavedChanges()) {
+                    e.preventDefault();
+                    e.returnValue = '';
+                }
+            });
+
+            document.getElementById('receiptForm').addEventListener('submit', saveReceipt);        </script>
     </body>
+    <footer>
+        <p>Receipt Manager</p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
+    </footer>
 </html>

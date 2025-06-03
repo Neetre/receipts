@@ -2,69 +2,158 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Receipt Manager</title>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
-        <meta name="description" content="Receipt Manager">
+        <meta name="description" content="Receipt Manager - Organize and manage your receipts with ease">
         <link rel="stylesheet" href="/static/styles.css">
+        <script src="/static/auth.js"></script>
     </head>
     <body>
         <div class="container">
-            <h1>Receipt Manager</h1>
-
-            <div class="upload-section">
-                <h2>Upload New Receipt</h2>
-                <p>Make sure that the receipts is on a white surface. Otherwise, it won't detect the receipt</p>
-                <input type="file" id="receiptFile" accept="immage/*">
-                <button onclick="uploadReceipt()">Upload</button>
-            </div>
-
-            
-            <div class="search-section">
-                <label for="search">Search:</label>
-                <input type="text" id="search" name="search" placeholder="Search by receipt ID">
-                <button onclick="searchReceipt()">Search</button>
-                <div id="results"></div>
-            </div>
-            <br><br>
-
-            <div class="receipts-section">
-                <h2>Your Receipts</h2>
-                <div class="receipts-grid" id="receiptsGrid"></div>
-                <div class="pagination">
-                    <button onclick="loadPreviousPage()">Previous</button>
-                    <button onclick="loadNextPage()">Next</button>
+            <div class="header">
+                <h1>📧 Receipt Manager</h1>
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span id="userName"></span>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
                 </div>
             </div>
-        </div>
 
-        <script>
+            <div class="upload-section">
+                <h2>📤 Upload New Receipt</h2>
+                <p>📋 Make sure the receipt is on a white surface for better detection</p>
+                <input type="file" id="receiptFile" accept="image/*" aria-label="Select receipt image">
+                <br>
+                <button onclick="uploadReceipt()" id="uploadBtn">
+                    <span id="uploadText">Upload Receipt</span>
+                    <span id="uploadSpinner" style="display: none;">⏳ Processing...</span>
+                </button>
+            </div>
+
+            <div class="search-section">
+                <h2>🔍 Search Receipts</h2>
+                <div class="search-controls">
+                    <input type="text" id="search" name="search" placeholder="Search by merchant, date, or amount...">
+                    <button onclick="searchReceipt()">Search</button>
+                    <button onclick="clearSearch()" class="secondary">Clear</button>
+                </div>
+                <div id="results"></div>
+            </div>
+
+            <div class="receipts-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>📄 Your Receipts</h2>
+                    <div class="pagination-info" id="paginationInfo"></div>
+                </div>
+                <div class="receipts-grid" id="receiptsGrid">
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <div>⏳ Loading receipts...</div>
+                    </div>
+                </div>
+                <div class="pagination">
+                    <button onclick="loadPreviousPage()" id="prevBtn" disabled>← Previous</button>
+                    <button onclick="loadNextPage()" id="nextBtn">Next →</button>
+                </div>
+            </div>
+        </div>        <script>
             let currentPage = 0;
             const itemsPerPage = 10;
             const BASE_URL = window.location.origin;
+            let totalReceipts = 0;
+    
+            // Initialize the page
+            document.addEventListener('DOMContentLoaded', async function() {
+                if (!(await AuthManager.checkAuthAndRedirect())) {
+                    return;
+                }
+                setupUserInfo();
+                loadReceipts();
+            });
+
+            function setupUserInfo() {
+                const userData = AuthManager.getUserData();
+                if (userData && userData.username) {
+                    document.getElementById('userName').textContent = userData.username;
+                    document.getElementById('userAvatar').textContent = userData.username.charAt(0).toUpperCase();
+                }
+            }
+
+            function logout() {
+                if (confirm('Are you sure you want to logout?')) {
+                    AuthManager.logout();
+                }
+            }
     
             async function loadReceipts() {
                 try {
-                    
+                    showLoadingState();
                     const response = await axios.get(`${BASE_URL}/receipts?offset=${currentPage * itemsPerPage}&limit=${itemsPerPage}`);
                     const receiptsGrid = document.getElementById('receiptsGrid');
                     receiptsGrid.innerHTML = '';
+                    
+                    totalReceipts = response.data.total || 0;
+                    updatePaginationInfo();
+    
+                    if (response.data.receipts.length === 0) {
+                        receiptsGrid.innerHTML = `
+                            <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                                <div style="font-size: 48px; margin-bottom: 20px;">📄</div>
+                                <h3>No receipts found</h3>
+                                <p>Upload your first receipt to get started!</p>
+                            </div>
+                        `;
+                        return;
+                    }
     
                     response.data.receipts.forEach(receipt => {
                         const card = document.createElement('div');
                         card.className = 'receipt-card';
                         card.innerHTML = `
-                            <h3>${receipt.merchant}</h3>
-                            <p>Receipt ID: ${receipt.id}</p>
-                            <p>Date: ${new Date(receipt.date).toLocaleDateString()}</p>
-                            <p>Amount: €${receipt.total_amount.toFixed(2)}</p>
+                            <h3>🏪 ${receipt.merchant || 'Unknown Merchant'}</h3>
+                            <p><strong>Receipt ID:</strong> ${receipt.id}</p>
+                            <p><strong>📅 Date:</strong> ${new Date(receipt.date).toLocaleDateString()}</p>
+                            <p class="amount"><strong>💰 Amount:</strong> €${(receipt.total_amount || 0).toFixed(2)}</p>
                             <button onclick="viewReceipt('${receipt.id}')">View Details</button>
                         `;
                         receiptsGrid.appendChild(card);
                     });
+
+                    // Update pagination buttons
+                    document.getElementById('prevBtn').disabled = currentPage === 0;
+                    document.getElementById('nextBtn').disabled = response.data.receipts.length < itemsPerPage;
+                    
                 } catch (error) {
                     console.error('Error loading receipts:', error);
+                    showErrorState('Failed to load receipts. Please try again.');
                 }
+            }
+
+            function showLoadingState() {
+                const receiptsGrid = document.getElementById('receiptsGrid');
+                receiptsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <div>⏳ Loading receipts...</div>
+                    </div>
+                `;
+            }
+
+            function showErrorState(message) {
+                const receiptsGrid = document.getElementById('receiptsGrid');
+                receiptsGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <div style="color: #dc3545; font-size: 48px; margin-bottom: 20px;">⚠️</div>
+                        <p style="color: #dc3545;">${message}</p>
+                        <button onclick="loadReceipts()" class="secondary">Try Again</button>
+                    </div>
+                `;
+            }
+
+            function updatePaginationInfo() {
+                const start = currentPage * itemsPerPage + 1;
+                const end = Math.min((currentPage + 1) * itemsPerPage, totalReceipts);
+                document.getElementById('paginationInfo').textContent = 
+                    `Showing ${start}-${end} of ${totalReceipts} receipts`;
             }
     
             async function uploadReceipt() {
@@ -74,17 +163,31 @@
                     alert('Please select a file first');
                     return;
                 }
+
+                const uploadBtn = document.getElementById('uploadBtn');
+                const uploadText = document.getElementById('uploadText');
+                const uploadSpinner = document.getElementById('uploadSpinner');
+                
+                uploadBtn.disabled = true;
+                uploadText.style.display = 'none';
+                uploadSpinner.style.display = 'inline';
     
                 const formData = new FormData();
                 formData.append('file', file);
     
                 try {
                     await axios.post(`${BASE_URL}/upload_receipt/`, formData);
-                    alert('Receipt uploaded successfully');
-                    loadReceipts();
+                    alert('✅ Receipt uploaded successfully! Processing in background...');
+                    fileInput.value = '';
+                    // Refresh receipts after a short delay to allow processing
+                    setTimeout(() => loadReceipts(), 2000);
                 } catch (error) {
                     console.error('Error uploading receipt:', error);
-                    alert('Error uploading receipt');
+                    alert('❌ Error uploading receipt. Please try again.');
+                } finally {
+                    uploadBtn.disabled = false;
+                    uploadText.style.display = 'inline';
+                    uploadSpinner.style.display = 'none';
                 }
             }
     
@@ -109,20 +212,33 @@
             }
 
             async function searchReceipt() {
-                const search = document.getElementById('search').value;
+                const search = document.getElementById('search').value.trim();
+                if (!search) {
+                    alert('Please enter a search term');
+                    return;
+                }
                 try {
-                    window.location.href = `/searchPage?id=${search}`;
+                    window.location.href = `/searchPage?id=${encodeURIComponent(search)}`;
                 } catch (error) {
                     console.error('Error searching receipts:', error);
                 }
             }
-    
-            // Load initial data
-            loadReceipts();
-        </script>
+
+            function clearSearch() {
+                document.getElementById('search').value = '';
+                currentPage = 0;
+                loadReceipts();
+            }
+
+            // Add keyboard support for search
+            document.getElementById('search').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchReceipt();
+                }
+            });        </script>
     </body>
     <footer>
         <p>Receipt Manager</p>
-        <p>Made by <a href="https://github.com/Neetre">Neetre</a>  &copy; <script>document.write(new Date().getFullYear());</script></p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
     </footer>
 </html>

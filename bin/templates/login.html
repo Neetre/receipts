@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Receipt Manager</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <meta name="description" content="Login to Receipt Manager">
+    <link rel="stylesheet" href="/static/styles.css">
+    <script src="/static/auth.js"></script>
+</head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
+    <div class="auth-container" style="flex: 1 0 auto;">
+        <h1 style="text-align: center;">🔐 Welcome Back</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 30px;">Sign in to your Receipt Manager account</p>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">👤 Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="password">🔒 Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter your password">
+            </div>
+            <button type="submit" id="loginBtn">
+                <span id="loginText">Sign In</span>
+                <span id="loginSpinner" style="display: none;">⏳ Signing in...</span>
+            </button>
+        </form>
+        
+        <div class="auth-links">
+            <p>Don't have an account? <a href="/register-page">Create one here</a></p>
+        </div>
+        
+        <div id="loginMessage"></div>
+    </div>
+
+    <script>
+        const BASE_URL = window.location.origin;
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            if (AuthManager.isAuthenticated()) {
+                AuthManager.redirectToHome();
+                return;
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await login();
+        });
+
+        async function login() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+
+            const loginBtn = document.getElementById('loginBtn');
+            const loginText = document.getElementById('loginText');
+            const loginSpinner = document.getElementById('loginSpinner');
+            
+            loginBtn.disabled = true;
+            loginText.style.display = 'none';
+            loginSpinner.style.display = 'inline';
+
+            try {
+                const response = await axios.post(`${BASE_URL}/login`, {
+                    username: username,
+                    password: password
+                });
+
+                // Store authentication data
+                AuthManager.setToken(response.data.access_token);
+                AuthManager.setUserData({
+                    user_id: response.data.user_id,
+                    username: response.data.username
+                });
+
+                showMessage('✅ Login successful! Redirecting...', 'success');
+                
+                setTimeout(() => {
+                    AuthManager.redirectToHome();
+                }, 1500);
+
+            } catch (error) {
+                console.error('Error during login:', error);
+                let errorMessage = 'An error occurred during login.';
+                
+                if (error.response) {
+                    if (error.response.status === 401) {
+                        errorMessage = '❌ Invalid username or password.';
+                    } else if (error.response.data && error.response.data.detail) {
+                        errorMessage = `❌ ${error.response.data.detail}`;
+                    }
+                }
+                
+                showMessage(errorMessage, 'error');
+            } finally {
+                loginBtn.disabled = false;
+                loginText.style.display = 'inline';
+                loginSpinner.style.display = 'none';
+            }
+        }
+
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('loginMessage');
+            messageDiv.textContent = message;
+            messageDiv.className = `message ${type}`;
+            
+            // Clear message after 5 seconds
+            setTimeout(() => {
+                messageDiv.textContent = '';
+                messageDiv.className = '';
+            }, 5000);
+        }
+
+        // Add keyboard shortcut for Enter key
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !document.getElementById('loginBtn').disabled) {
+                login();
+            }
+        });    </script>
+
+    <footer style="flex-shrink: 0;">
+        <p>Receipt Manager</p>
+        <p>Made by <a href="https://github.com/Neetre">Neetre</a> &copy; <script>document.write(new Date().getFullYear());</script></p>
+    </footer>
+</body>
+</html>
