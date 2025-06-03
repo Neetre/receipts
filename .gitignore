@@ -9,5 +9,4 @@ qdrant_storage/
 *.db
 
 # py
-data_manager.py
 *.bak
